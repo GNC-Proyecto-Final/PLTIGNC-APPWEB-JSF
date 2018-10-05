@@ -1,0 +1,55 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"> 
+
+
+  <h:head>
+     <link type="text/css" rel="stylesheet" href="../resources/css/gnc-style.css" />
+             <title>
+            <ui:insert name="titulo">
+                GNC Gestión de Nacimientos y crias
+            </ui:insert>
+        </title>
+  </h:head>
+    
+   <h:body>
+
+	  <div id="gnc-page" class="gnc-page">
+	    
+		    <header>
+	        <ui:insert name="header" >
+			     <ui:include src="/template/GNCHeader.xhtml" />
+			   </ui:insert>
+	    	</header>
+	      <div id="gnc-contenedor-principal" class="gnc-contenedor-principal">
+	      	<div id="gnc-contenedor-interior" class="gnc-contenedor-interior">
+	      	
+		      <div id="gnc-lateral" class="gnc-lateral">
+		         <ui:insert name="lateral" >
+		           	<ui:include src="/template/GNCLateral.xhtml" />
+		         </ui:insert>
+		      </div>
+		      
+		      <div id="gnc-contenido" class="gnc-contenido">
+		         <ui:insert name="contenido" >
+		          	 <!-- <ui:include src="/template/contenido.xhtml" /> -->
+		         </ui:insert>
+		      </div>
+	        </div>
+ 		</div>
+	      
+	    </div>
+    
+    	  <div id="gnc-pie" class="gnc-pie">
+    	  <div class="gnc-pie-interior">
+		        <ui:insert name="footer" >
+		          <ui:include src="/template/GNCFooter.xhtml" />
+		        </ui:insert>
+	        </div>
+	      </div>
+    
+    </h:body>
+
+</html>

@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"> 
+     <h:body>
+    	
+    	<ui:composition template="/template/GNCPlantilla.xhtml">
+    	    	<ui:define name ="titulo">
+			        Login
+			    </ui:define>
+    		<ui:define name="contenido">
+	    		<div class="GNCdetalle">
+	    		
+					   <header>  
+					        <h3>Ingrese Datos</h3>
+					    </header>
+
+						
+						<h:form>
+							<h:panelGrid columns="3">
+								Nombre:
+								<h:inputText id="usuario" value="#{usuario.usuario}"  required= "true" label="Usuario" />
+								<h:message for="usuario" style="color:red" />
+								
+								Contraseña:
+								<h:inputText id="contrasenia" value="#{usuario.contrasenia}" required="true" label="Contrasena" />
+								<h:message for="contrasenia" style="color:red" />
+							
+							
+							</h:panelGrid>
+							<h:commandButton action="#{usuario.loginUsuario}" value="Enviar" />
+						</h:form>
+					</div>
+	    		</ui:define>
+    		
+    	</ui:composition>
+    	
+    </h:body>
+
+</html>

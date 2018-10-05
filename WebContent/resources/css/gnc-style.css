@@ -1,0 +1,453 @@
+@CHARSET "UTF-8";
+
+/*********************************************************************************/
+/* Basic                                                                         */
+/*********************************************************************************/
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,embed,figure,figcaption,footer,header,hgroup,menu,nav,output,ruby,section,summary,time,mark,audio,video
+{
+    margin:0;
+    padding:0;
+    border:0;
+    font-size:100%;
+    font:inherit;
+    vertical-align:baseline;
+}
+td{
+	vertical-align: middle;
+	padding: 5px;
+}
+form input[type="text"], form input[type="email"], form input[type="password"], form select, form textarea
+{
+    display: block;
+    border-radius: 0.4em;
+    border: 1px solid #DDD;
+    padding: 0.5em 0.75em;
+    width: 100%;
+    line-height: 1.25em;
+}
+article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section
+{
+    display:block;
+}
+body
+{
+    line-height:1;
+}
+a{
+    text-decoration: none;
+}
+ol,ul
+{
+    list-style:none;
+}
+blockquote,q
+{
+    quotes:none;
+}
+blockquote:before,blockquote:after,q:before,q:after
+{
+    content:'';
+    content:none;
+}
+table
+{
+    border-collapse:collapse;
+    border-spacing:0;
+}
+body
+{
+    -webkit-text-size-adjust:none
+}
+
+
+*, *:before, *:after 
+{
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+body,input,textarea,select
+{
+	line-height: 1.75em;
+}
+h2
+{
+    font-size: 1.2em;
+}
+
+h3, h4, h5, h6
+{
+    font-size: 1em;
+}
+body
+{
+	background-color: #e8e8e8;
+
+}
+
+.gnc-page
+{
+    background-color: #FFC089;
+    box-sizing: border-box;
+    background-image: url('../images/fondo2.jpg');   
+    background: #369250; /* Old browsers */
+    /* IE9 SVG, needs conditional override of 'filter' to 'none' */
+    padding-bottom: 75px;
+
+}
+.gnc-logo-texto
+{
+    color: #FFF;
+    font-family: "Monotype Corsiva";
+    display: block;
+    font-size: 1.2em;
+    width: 100%;
+    margin: 0px auto;
+    padding: 0px;
+    position: absolute;
+    clear: none;
+    left: 77px;
+    float: right;
+    padding: 5px;
+}
+h1,h2,h3,h4,h5,h6
+{	
+    font-family: 'Cabin Sketch', cursive;
+   	font-weight: 700;
+	color: #232323;
+    font-size: 3.25em;  
+}
+h1,h2 a, h4 a, h5 a, h6 a
+{
+	text-decoration: none;
+	color: inherit;
+    font-size: 3.25em;  
+}
+a
+{
+	color: #c94663;
+}
+header > h1
+{
+    font-size: 2em;        
+    display: block;
+    font-family: 'Cabin Sketch', cursive;
+    font-weight: 150;
+    color:#094893;
+    line-height: 1.25em;
+    position: relative;
+    top: -0.15em;
+    margin-bottom: 0.45em;  
+   margin-top: 1em;
+         
+}
+header > h2
+{
+    font-size: 1.5em;        
+    display: block;
+    font-family: 'Cabin Sketch', cursive;
+    font-weight: 150;
+    color:#094893;
+    line-height: 1.25em;
+    position: relative;
+    top: -0.15em;
+    margin-bottom: 1em;  
+    /*margin-top: 1em;*/
+
+            
+}
+header > h3
+{
+    font-size: 1em;        
+    display: block;
+    font-family: 'Cabin Sketch', cursive;
+    font-weight: 150;
+    color:#094893;
+    line-height: 1.25em;
+    position: relative;
+    top: -0.15em;
+    margin-bottom: 1em;  
+    /*margin-top: 1em;*/
+  
+       
+}
+p, ul, ol, dl, table
+{
+    margin-bottom: 1em;
+}
+section > :last-child,
+article > :last-child
+{
+	margin-bottom: 0;
+}
+body,input,textarea,select
+{	
+    font-family: 'Noto Sans', sans-serif;
+	font-weight: 400;
+	color: #565656;
+    
+}
+
+/*********************************************************************************/
+/* Encabezado                                                                    */
+/*********************************************************************************/
+
+.gnc-encabezado
+{
+    box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.1);
+    /*encabezado fijo
+    position: fixed;
+    */
+    
+    
+     position: fixed;
+    top: 0px !important;
+    left: 0px;
+    right: 0px;
+    z-index: 990;
+    transform: translateZ(0px);
+    min-height: 70px;
+    
+    background: #b1afaf; /* Old browsers */  
+}
+
+.gnc-interior-encabezado
+{
+    margin: 0px auto;
+    width: 100%;
+    max-width: 995px;
+    position: relative;
+    z-index: 1000;
+}
+.gnc-logo
+{
+    position: absolute;
+    padding: 4px;
+    left: 10px;
+    min-width: 500px;
+}
+.gnc-logo img {
+    display: block;
+    
+    height: 62px;
+}
+
+
+/*********************************************************************************/
+/*Menu                                                                           */
+/*********************************************************************************/
+header{
+    width: 100%;
+}
+#menu
+{
+    background-color: #A1C952;
+    float: right;
+    font-family: "Noto Sans",sans-serif;
+    font-weight: bold;
+    margin-right: 1%;
+    font-size: 1.3em;
+     
+}  
+
+
+
+#menu {
+    float: left;
+    margin-bottom: 40px;
+    width: 100%;
+}
+
+#menu ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+#menu ul li{
+    margin: 2px;
+    margin: 0;
+}
+
+#menu a, #menu a:visited {
+    text-decoration: none;
+    color: #fff;
+    text-shadow: 1px 1px 1px #000;
+    display: block;
+   
+    padding: 5px 5px;
+    display: block;
+    text-decoration: none;
+}
+
+#menu a:hover {
+	background:#037e8c;
+    color: #FFA200; 
+    padding: 5px 5px;
+}
+
+
+/*********************************************************************************/
+/*Lateral                                                                        */
+/*********************************************************************************/
+
+.gnc-lateral
+{
+    float: left;
+    margin: 0px 1% 2% 0px;
+   width: 25%;
+    box-sizing: border-box;
+     background-color:#e8e8e8;
+    /*background-color: #FDA419;*/
+    padding: 15px;
+    border-radius: 5px;
+    color: #2C6086;
+
+}
+.gnc-caja-lateral
+{
+    /*background: none repeat scroll 0% 0% #F4F4F4;*/
+    background: none repeat scroll 0% 0% #5A7283;
+    font-size: 12px;
+    border-radius: 5px;
+    padding: 10px;
+    color:  #fff;
+    font-size: 1.2em;
+}
+.gnc-lateral section
+{
+    margin: 2em 0 0 0;
+    font-size: 0.7em;
+}
+
+.gnc-menu > ul > li {
+    display: block;
+    float: none;
+    width: 100%;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+/*linea antes del menu*/
+.gnc-lateral section:before
+{
+	height: 0.5em;
+	margin: 0 0 2em 0;
+}
+/*linea antes del menu*/
+.gnc-lateral section:before
+{
+	content: '';
+	border-top: solid 1px;
+	border-bottom: solid 1px;
+	border-color: #0A4D7C;
+	border-color: rgba(0,0,0,0.25);
+	box-shadow: inset 0px 1px 0px 0px rgba(255,255,255,0.075), 0px 1px 0px 0px rgba(255,255,255,0.075);
+	display: block;
+}
+/*********************************************************************************/
+/*Contenido                                                                      */
+/*********************************************************************************/
+
+.gnc-contenedor-principal
+{
+    position: relative; 
+}
+
+.gnc-contenedor-principal
+{
+    
+    max-width: 995px;
+    width: 100%;
+    
+    margin: 0px auto;
+    padding: 0px 10px;
+    padding-bottom: 15px;
+    top: 75px;
+    /** para encabezado fijo
+    margin: 0px auto;
+    padding: 0px 10px;
+    top: 75px;
+    */
+    Box-sizing:border-box;
+}
+.gnc-contenido
+{
+   overflow-x: hidden;
+    background-color: #FFF;
+    width: 74%;
+    overflow-y: auto;
+    box-sizing: border-box;
+    border-radius: 5px;
+    padding: 1.5em 1.5em 2em;
+    min-height: 500px;
+    
+}
+.boton
+{
+    font-size: small;
+    font-family: "Halant",serif;
+    font-weight: bold;
+    color: #FFF;
+    background: none repeat scroll 0% 0% #3594CF;
+    border: 0px none;
+    border-radius: 0.4em;
+    width: 70px;
+    display: block;
+    margin-top: 2%;
+    padding: 1%;
+    height: auto;
+}
+
+/*********************************************************************************/
+/*Pie                                                                            */
+/*********************************************************************************/
+
+
+.gnc-pie
+{
+    background-color: #933269;
+    color: #FFF;
+    font-family: 'Noto Sans', sans-serif;
+    /*Para pie movil*/
+    /*
+    margin-top: 80px;
+    
+    */
+    font-size: 0.7em;
+    /*box-sizing: border-box;*/
+    clear: both;
+    position: relative;
+    background-image: url('../images/enca.jpg');  
+}
+
+.gnc-pie, .gnc-pie-interior
+{
+    overflow: hidden;
+    padding: 11px 0px 10px;
+}
+
+
+.gnc-pie-interior
+{
+    margin: 0px auto;
+    width: 100%;
+    max-width: 995px;
+    /*min-width: 995px;*/
+    position: relative;
+    z-index: 1000;
+   
+}
+.gnc-pie-copyright
+{
+    position: relative;
+    float:left;
+    left: 25px;
+}
+
+.gnc-pie-design
+{
+    float:right;
+    position: relative;
+    right: 25px;
+}

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      
+      xmlns:h="http://java.sun.com/jsf/html">
+    <body>
+      <ui:composition>
+ <section class="box-menu">
+
+            <nav id="menu">
+                <h:form>
+                    <ul>
+                        <li><h:commandLink action="index">Inicio</h:commandLink></li>
+                        <li><h:commandLink action="productos">Productos</h:commandLink></li>
+                        <li><h:commandLink action="localizacion">Localización</h:commandLink></li>
+                        <li><h:commandLink action="contacto">Contacto</h:commandLink></li>
+                         <li><h:commandLink action="pagina">Pagina</h:commandLink></li>
+                         <li><h:commandLink action="#{usuario.logout()}">Salir</h:commandLink></li>
+                    </ul> 
+                    
+                </h:form>
+            </nav>
+
+        </section>
+      </ui:composition>
+    </body>
+</html>
