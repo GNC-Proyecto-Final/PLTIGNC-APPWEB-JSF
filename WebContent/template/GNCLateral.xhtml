@@ -1,25 +1,59 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
-"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"   
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      
-      xmlns:h="http://java.sun.com/jsf/html">
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui">
     <body>
       <ui:composition>
  <section class="box-menu">
 
             <nav id="menu">
                 <h:form>
-                    <ul>
-                        <li><h:commandLink action="index">Inicio</h:commandLink></li>
-                        <li><h:commandLink action="productos">Productos</h:commandLink></li>
-                        <li><h:commandLink action="localizacion">Localización</h:commandLink></li>
-                        <li><h:commandLink action="contacto">Contacto</h:commandLink></li>
-                         <li><h:commandLink action="pagina">Pagina</h:commandLink></li>
-                         <li><h:commandLink action="#{usuario.logout()}">Salir</h:commandLink></li>
-                    </ul> 
-                    
+                
+                
+                
+                <p:growl id="messages" showDetail="false"/>
+                <p:tieredMenu style="width:200px">
+			        <p:submenu label="Ternera">
+			            <p:menuitem value="Nueva Ternera" action="#" ajax="false" />
+			            <p:menuitem value="Terneras" action="#" ajax="false"/>
+			        </p:submenu>
+			        <p:separator />
+			        <p:submenu label="Alimentos">
+				         <p:menuitem value="Nuevo" action="#" ajax="false"/>
+			          	 <p:menuitem value="Listado de Alimentos" action="#" ajax="false"/>
+          				 <p:menuitem value="Consumo" action="#" ajax="false"/>
+          		 		 <p:menuitem value="Registro de Peso" action="#" ajax="false"/>   			        
+			        </p:submenu>
+			         <p:separator />
+			        <p:submenu label="Medicación">
+				         <p:menuitem value="Nuevo" action="#" ajax="false"/>
+			          	 <p:menuitem value="Listado de Medicamentos" action="#" ajax="false"/>
+          				 <p:menuitem value="Consumo" action="#" ajax="false"/>
+			        </p:submenu>
+			        <p:separator />
+			        <p:submenu label="Enfermedades">
+			        	<p:submenu label="Registro">
+			                <p:menuitem value="Nueva Enfermedad" action="NuevaEnfermedad" ajax="false"/>
+			                <p:menuitem value="Ternera Enferma" action="NuevaTerneraEnferma" ajax="false"/>
+			            </p:submenu>	     
+			            <p:submenu label="Listado">
+			                <p:menuitem value="Enfermedades" action="#" ajax="false"/>
+			                <p:menuitem value="Terneras Enfermas" action="#" ajax="false"/>
+			            </p:submenu>
+			           
+			        </p:submenu>
+			        <p:separator />
+			         <p:submenu label="Salir">
+				         <p:menuitem value="Cerrar Session" action="#{usuario.logout()}" ajax="false" icon="ui-icon-close"/>
+			        </p:submenu>
+			    </p:tieredMenu>
+			 
+ 
+                
+                
                 </h:form>
             </nav>
 

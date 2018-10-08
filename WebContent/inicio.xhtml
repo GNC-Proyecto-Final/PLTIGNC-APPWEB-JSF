@@ -1,10 +1,10 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:p="http://java.sun.com/jsf/html"> 
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui">
      <h:body>
     	
     	<ui:composition template="/template/GNCPlantillaLogin.xhtml">
@@ -14,23 +14,35 @@
     		<ui:define name="contenido">       
 				 		<div class="login">
 	
-						<h:form>
-						
-						<p:messages globalOnly="true" style = "color:red;margin:8px;" />
-							<h:panelGrid columns="3">
-								Nombre:
-								<h:inputText id="usuario" value="#{usuario.usuario}" placeholder="Usuario" required= "true" label="Usuario" />
-								<h:message for="usuario" style="color:red" />
-								
-								Contraseña:
-								<h:inputSecret id="contrasenia" value="#{usuario.contrasenia}" placeholder="Contraseña"  required="true" label="contrasenia" />
-								<h:message for="contrasenia" style="color:red" />
-							
-							
-							</h:panelGrid>
-							<h:commandButton action="#{usuario.loginUsuario()}" value="Ingresar" class="boton" />
-						</h:form>
+							<h:form>
+							<div class="rowbtn">
+								<p:messages globalOnly="true" style = "color:red;margin:8px;" />
+							</div>
+									
+									
+									<div  class="fila">
+										<div class="col1">Usuario:</div> 
+									    <div class="col2"><h:inputText id="usuario" value="#{usuario.usuario}" placeholder="Usuario" required= "true" label="Usuario" /></div>
+									    <div class="col3"><h:message for="usuario" /></div>
+									</div>
+			           				<div  class="fila">
+			           					<div class="col1">Contraseña:</div> 
+			           					<div class="col2"><h:inputSecret id="contrasenia" value="#{usuario.contrasenia}" placeholder="Contraseña"  required="true" label="contrasenia" /></div>
+			           					<div class="col3"><h:message class="msgform" for="contrasenia"  /></div>
+			           				</div>          
+			          				<div class="rowbtn">  
+			                  			<h:commandButton action="#{usuario.loginUsuario()}" value="Ingresar" class="boton" />
+			             			</div>
+			             			
+			             		
+			             			
+							</h:form>
 						</div>
+						
+					<div>
+						
+					</div>
+						
     		</ui:define>
     		
     	</ui:composition>

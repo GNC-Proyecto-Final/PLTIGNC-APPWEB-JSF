@@ -1,0 +1,61 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui">
+        <h:body>
+    	
+    	<ui:composition template="/template/GNCPlantilla.xhtml">
+    		<ui:define name ="titulo">
+			        Nueva Enfermedad
+			    </ui:define>
+    		<ui:define name="contenido">
+				 <header>  
+					  <h3>Ingrese Datos Nueva Enfermedad</h3>
+				 </header>
+				 <h:form>
+				 	<div class="rowbtn">
+								<p:messages globalOnly="true" style = "color:red;margin:8px;" />
+							</div>
+
+
+					 
+					 
+					 <div  class="fila">
+						<div class="col1">Nombre:</div> 
+					    <div class="col2">
+							<p:selectOneMenu id="nombreEnfermedad">
+							 	<f:selectItem  itemLabel="Select One" itemValue="" />
+								 <f:selectItem  itemLabel="Uno" itemValue="uno" />
+								 <f:selectItem  itemLabel="Dos" itemValue="dos" />
+							 </p:selectOneMenu>
+						</div>
+					    <div class="col3"><h:message for="nombre" /></div>
+					</div>
+     				<div  class="fila">
+     					<div class="col1">Grado:</div> 
+     					<div class="col2">
+							<p:selectOneMenu id="grado">
+					 	<f:selectItem  itemLabel="Select One" itemValue="" />
+							 <f:selectItem  itemLabel="Uno" itemValue="uno" />
+							 <f:selectItem  itemLabel="Dos" itemValue="dos" />
+						 </p:selectOneMenu>
+     					
+     					</div>
+     					<div class="col3"><h:message class="msgform" for="grado"  /></div>
+     				</div>          
+    				<div class="rowbtn">  
+            			<h:commandButton action="#" value="Registrar" class="boton" />
+       				</div>
+					 
+					 
+				</h:form>
+    		</ui:define>
+    		
+    	</ui:composition>
+    	
+    </h:body>
+
+</html>

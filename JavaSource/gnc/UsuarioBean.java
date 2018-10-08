@@ -95,9 +95,11 @@ public class UsuarioBean {
 					
 					return "mostrar";
 				}else{
-							context.addMessage(null,new FacesMessage(FacesMessage.SEVERITY_WARN,
-									"Usuario o Passowrd Incorrecto",
+
+							 	context.addMessage(null,new FacesMessage(FacesMessage.SEVERITY_WARN,
+									"Usuario o Contraseña Incorrecto",
 									"Por favor ingrese Usuario y contraseña correcto"));
+				
 					return "inicio";
 				}
 			

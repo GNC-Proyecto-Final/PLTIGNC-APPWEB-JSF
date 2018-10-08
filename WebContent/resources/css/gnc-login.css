@@ -262,7 +262,7 @@ body,input,textarea,select
     Box-sizing:border-box;
 }
 .login{
-	width:325px;
+	width:75%;
 	margin-left: auto;
 	margin-right: auto;
 	margin-top:100px;
@@ -346,4 +346,85 @@ body,input,textarea,select
     float:right;
     position: relative;
     right: 25px;
+}
+/*********************************************************************************/
+/*forms                                                                          */
+/*********************************************************************************/
+.fila
+{
+    display: inline-block;
+    width: 100%;
+    color: #918F96;
+    font-size: medium;
+}
+.col1
+{
+    float: left;
+    width: 30%;
+    padding-left: 10%;
+    font-family: 'Noto Sans', sans-serif;
+    color: #565656;
+    font-size: small;
+    
+}
+.col2
+{
+    float: left;
+    width: 30%;
+    padding-left: 2%;
+    font-size: small;
+}
+.col3
+{
+    float: left;
+    width: 35%;
+    padding-left: 2%;
+    background: none repeat scroll 0% 0% #F52C2C;
+    color: white;
+    margin-left: 1%;
+    font-family: 'Noto Sans', sans-serif;
+    font-size: small;
+   
+}
+
+
+.rowbtn
+{
+
+    padding-left: 32%;
+}
+.botonlistado
+{
+    font-size: small;
+    font-family: "Halant",serif;
+    font-weight: bold;
+    color: #FFF;
+    background: none repeat scroll 0% 0% #3594CF;
+    border: 0px none;
+    border-radius: 0.4em;
+    width: 100px;
+    display: block;
+    margin-top: 2%;
+    padding: 1%;
+    height: auto;
+    float: right;
+}
+.boton
+{
+    font-size: small;
+    font-family: "Halant",serif;
+    font-weight: bold;
+    color: #FFF;
+    background: none repeat scroll 0% 0% #3594CF;
+    border: 0px none;
+    border-radius: 0.4em;
+    width: 70px;
+    display: block;
+    margin-top: 2%;
+    padding: 1%;
+    height: auto;
+}
+.editor
+{
+    padding-left: 10%;
 }

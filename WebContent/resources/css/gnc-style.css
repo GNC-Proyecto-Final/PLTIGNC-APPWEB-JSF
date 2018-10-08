@@ -242,13 +242,14 @@ header{
 }
 #menu
 {
+	/*
     background-color: #A1C952;
     float: right;
     font-family: "Noto Sans",sans-serif;
     font-weight: bold;
     margin-right: 1%;
     font-size: 1.3em;
-     
+     */
 }  
 
 
@@ -256,21 +257,28 @@ header{
 #menu {
     float: left;
     margin-bottom: 40px;
+   /*
     width: 100%;
+    */
 }
 
 #menu ul {
     list-style: none;
     margin: 0;
     padding: 0;
+    font-size: 13px;
 }
 
 #menu ul li{
     margin: 2px;
+    /*
     margin: 0;
+    */
+    font-size: 13px;
 }
 
 #menu a, #menu a:visited {
+    /*
     text-decoration: none;
     color: #fff;
     text-shadow: 1px 1px 1px #000;
@@ -279,14 +287,23 @@ header{
     padding: 5px 5px;
     display: block;
     text-decoration: none;
+    
+    */
 }
 
 #menu a:hover {
-	background:#037e8c;
-    color: #FFA200; 
-    padding: 5px 5px;
-}
 
+    color: #FFA200; 
+   	/*
+   	background:#037e8c;	
+    padding: 5px 5px;
+    */
+}
+.ui-widget .ui-widget {
+	/*
+    font-size: 0.7em;
+    */
+}
 
 /*********************************************************************************/
 /*Lateral                                                                        */
@@ -307,36 +324,43 @@ header{
 }
 .gnc-caja-lateral
 {
-    /*background: none repeat scroll 0% 0% #F4F4F4;*/
+    /*background: none repeat scroll 0% 0% #F4F4F4;
     background: none repeat scroll 0% 0% #5A7283;
     font-size: 12px;
     border-radius: 5px;
     padding: 10px;
     color:  #fff;
-    font-size: 1.2em;
+    font-size: 1.2em;*/
 }
 .gnc-lateral section
 {
+	/*
     margin: 2em 0 0 0;
-    font-size: 0.7em;
+    font-size: 0.7em
+	*/
 }
 
 .gnc-menu > ul > li {
+	
     display: block;
     float: none;
     width: 100%;
     border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+    
     }
 
 /*linea antes del menu*/
 .gnc-lateral section:before
 {
+/*
 	height: 0.5em;
 	margin: 0 0 2em 0;
+*/
 }
 /*linea antes del menu*/
 .gnc-lateral section:before
 {
+	/*
 	content: '';
 	border-top: solid 1px;
 	border-bottom: solid 1px;
@@ -344,6 +368,7 @@ header{
 	border-color: rgba(0,0,0,0.25);
 	box-shadow: inset 0px 1px 0px 0px rgba(255,255,255,0.075), 0px 1px 0px 0px rgba(255,255,255,0.075);
 	display: block;
+	*/
 }
 /*********************************************************************************/
 /*Contenido                                                                      */
@@ -450,4 +475,85 @@ header{
     float:right;
     position: relative;
     right: 25px;
+}
+/*********************************************************************************/
+/*forms                                                                          */
+/*********************************************************************************/
+.fila
+{
+    display: inline-block;
+    width: 100%;
+    color: #918F96;
+    font-size: medium;
+}
+.col1
+{
+    float: left;
+    width: 30%;
+    padding-left: 10%;
+    font-family: 'Noto Sans', sans-serif;
+    color: #565656;
+    font-size: small;
+    
+}
+.col2
+{
+    float: left;
+    width: 30%;
+    padding-left: 2%;
+    font-size: small;
+}
+.col3
+{
+    float: left;
+    width: 35%;
+    padding-left: 2%;
+    background: none repeat scroll 0% 0% #F52C2C;
+    color: white;
+    margin-left: 1%;
+    font-family: 'Noto Sans', sans-serif;
+    font-size: small;
+   
+}
+
+
+.rowbtn
+{
+
+    padding-left: 32%;
+}
+.botonlistado
+{
+    font-size: small;
+    font-family: "Halant",serif;
+    font-weight: bold;
+    color: #FFF;
+    background: none repeat scroll 0% 0% #3594CF;
+    border: 0px none;
+    border-radius: 0.4em;
+    width: 100px;
+    display: block;
+    margin-top: 2%;
+    padding: 1%;
+    height: auto;
+    float: right;
+}
+.boton
+{
+    font-size: small;
+    font-family: "Halant",serif;
+    font-weight: bold;
+    color: #FFF;
+    background: none repeat scroll 0% 0% #3594CF;
+    border: 0px none;
+    border-radius: 0.4em;
+    width: 70px;
+    display: block;
+    margin-top: 2%;
+    padding: 1%;
+    height: auto;
+}
+.editor
+{
+    padding-left: 10%;
 }

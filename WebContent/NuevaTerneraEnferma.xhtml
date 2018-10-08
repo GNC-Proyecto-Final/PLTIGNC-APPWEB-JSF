@@ -1,0 +1,78 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui">
+        <h:body>
+    	
+    	<ui:composition template="/template/GNCPlantilla.xhtml">
+    		<ui:define name ="titulo">
+			        Nueva Enfermedad
+			    </ui:define>
+    		<ui:define name="contenido">
+				 <header>  
+					  <h3>Ingrese Datos Nueva Ternera Enferma</h3>
+				 </header>
+				 <h:form>
+				 	<div class="rowbtn">
+								<p:messages globalOnly="true" style = "color:red;margin:8px;" />
+							</div>
+
+
+					 
+					 
+					 <div  class="fila">
+						<div class="col1">Ternera</div> 
+					    <div class="col2">
+							    <p:inputNumber id="input1" value="0" decimalPlaces="0"/>   
+				                    
+						</div>
+					    <div class="col3"><h:message for="ternera" /></div>
+					</div>
+					<div  class="fila">
+     					<div class="col1">Enfermedad:</div> 
+     					<div class="col2">
+							  <p:inputNumber id="enfermedad" value="0" decimalPlaces="0"/>   
+     					
+     					</div>
+     					<div class="col3"><h:message class="msgform" for="enfermedad"  /></div>
+     				</div> 
+					 <div  class="fila">
+						<div class="col1">Fecha Inicio</div> 
+					    <div class="col2">
+					   		 <p:calendar id="fechaIni" value="" locale="es" navigator="true" pattern="dd/MM/yyyy"  />
+						</div>
+					    <div class="col3"><h:message for="fechaInicio" /></div>
+					</div>					
+					
+					 <div  class="fila">
+						<div class="col1">Fecha Fin</div> 
+					    <div class="col2">
+					   		 <p:calendar id="fechaFin" value="" locale="es" navigator="true" pattern="dd/MM/yyyy"  />
+						</div>
+					    <div class="col3"><h:message for="fechaFin" /></div>
+					</div>		
+					
+					<div  class="fila">
+						<div class="col1">Otros Aspectos</div> 
+					    <div class="col2">
+   							 <p:inputTextarea rows="10" cols="50" queryDelay="750" minQueryLength="4" />
+ 					</div>
+					    <div class="col3"><h:message for="OtrosAspectos" /></div>
+					</div>	
+         
+    				<div class="rowbtn">  
+            			<h:commandButton action="#" value="Registrar" class="boton" />
+       				</div>
+					 
+					 
+				</h:form>
+    		</ui:define>
+    		
+    	</ui:composition>
+    	
+    </h:body>
+
+</html>
