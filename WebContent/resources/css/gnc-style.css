@@ -18,11 +18,15 @@ td{
 }
 form input[type="text"], form input[type="email"], form input[type="password"], form select, form textarea
 {
+    /*
     display: block;
+    */
     border-radius: 0.4em;
     border: 1px solid #DDD;
     padding: 0.5em 0.75em;
+    /*
     width: 100%;
+    */
     line-height: 1.25em;
 }
 article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section
@@ -32,6 +36,8 @@ article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section
 body
 {
     line-height:1;
+    font-family: 'Open Sans', sans-serif;
+	font-size: 14px;
 }
 a{
     text-decoration: none;
@@ -556,4 +562,14 @@ header{
 .editor
 {
     padding-left: 10%;
+}
+
+elemento {
+
+}
+.ui-widget {
+
+    font-family: Arial,sans-serif;
+    font-size: 12px;
+
 }

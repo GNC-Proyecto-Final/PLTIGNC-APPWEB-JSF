@@ -1,0 +1,74 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui">
+        <h:body>
+    	
+    	<ui:composition template="/template/GNCPlantilla.xhtml">
+    		<ui:define name ="titulo">
+			        Nueva Enfermedad
+			    </ui:define>
+    		<ui:define name="contenido">
+				 <header>  
+					  <h3>Enfermedades</h3>
+				 </header>
+				<h:form>
+					    <p:dataTable id="tablaEnfermedadDT" var="enfermedadDT" value="#{Enferm.enfermedades}" widgetVar="terneraTabla" multiViewState="true"
+					                 rows="10" paginator="true"
+					                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					                 rowsPerPageTemplate="5,10,15"
+					                 selectionMode="single" selection="#{Enferm.selectedEnfermedad}" rowKey="#{enfermedadDT.idEnfermedad}"
+					                 emptyMessage="No cars found with given criteria" filteredValue="#{Enferm.filteredEnfermedades}">
+						 
+						        <f:facet name="header">
+						            <p:outputPanel>
+						                <h:outputText value="Buscar en todas las filas:" />
+						                <p:inputText id="globalFilter" onkeyup="PF('terneraTabla').filter()" style="width:150px" placeholder="Ingrese Palabra"/>
+						            </p:outputPanel>
+						        </f:facet>
+						 			<p:ajax event="rowSelect" update="" oncomplete="PF('enferDialog').show()" />
+						        <!--  <p:ajax event="rowSelect" update=":form:enferDetail" oncomplete="PF('enferDialog').show()" />-->
+						 
+						        <p:column headerText="Id" filterBy="#{enfermedadDT.idEnfermedad}" sortBy="#{enfermedadDT.idEnfermedad}" filterMatchMode="contains">
+						            <h:outputText value="#{enfermedadDT.idEnfermedad}" />
+						        </p:column>
+						 
+						        <p:column headerText="Gravedad" filterBy="#{enfermedadDT.gradoGravedad}" sortBy="#{enfermedadDT.gradoGravedad}" filterMatchMode="startsWith">
+						            <h:outputText value="#{enfermedadDT.gradoGravedad}" />
+						        </p:column>
+						        
+						        <p:column headerText="Nombre" filterBy="#{enfermedadDT.nombre}" sortBy="#{enfermedadDT.nombre}" filterMatchMode="startsWith">
+						            <h:outputText value="#{enfermedadDT.nombre}" />
+						        </p:column>
+						 
+					 
+
+						    </p:dataTable>
+						 
+						    <p:dialog header="Enfermedad" widgetVar="enferDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+						        <p:outputPanel id="enferDetail" style="text-align:center;">
+						            <p:panelGrid  columns="2" rendered="#{not empty Enferm.selectedEnfermedad}" columnClasses="label,value">
+						 
+						                <h:outputText value="Id:" />
+						                <h:outputText value="#{Enferm.selectedEnfermedad.idEnfermedad}" />
+						 
+						                <h:outputText value="Gravedad" />
+						                <h:outputText value="#{Enferm.selectedEnfermedad.gradoGravedad}" />
+						 
+						                <h:outputText value="Nombre" />
+						                <h:outputText value="#{Enferm.selectedEnfermedad.nombre}" />
+						 
+						            </p:panelGrid>
+						        </p:outputPanel>
+						    </p:dialog>
+						</h:form>
+    		</ui:define>
+    		
+    	</ui:composition>
+    	
+    </h:body>
+
+</html>

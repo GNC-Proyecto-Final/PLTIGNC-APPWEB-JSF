@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui">
+        <h:body>
+    	
+    	<ui:composition template="/template/GNCPlantilla.xhtml">
+    		<ui:define name ="titulo">
+			        Nueva Enfermedad
+			    </ui:define>
+    		<ui:define name="contenido">
+				 <header>  
+					  <h3>Listado de Terneras Enfermas</h3>
+				 </header>
+						<h:form>
+						   <p:dataTable var="enf" value="#{Enferm.enfermedades}">
+							    <p:column headerText="Id">
+							        <h:outputText value="#{enf.idEnfermedad}" />
+							    </p:column>
+							 
+							    <p:column headerText="Gravedad">
+							        <h:outputText value="#{enf.gradoGravedad}" />
+							    </p:column>
+							 
+							    <p:column headerText="Nombre">
+							        <h:outputText value="#{enf.nombre}" />
+							    </p:column>
+
+							</p:dataTable>
+						</h:form>
+    		</ui:define>
+    		
+    	</ui:composition>
+    	
+    </h:body>
+
+</html>

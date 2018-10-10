@@ -1,57 +1,71 @@
 package gnc;
 
+import java.util.List;
+
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
 import DAO.DAOEnfermedadesBean;
-import enumerados.NombreEnfermedad;
+import entidades.Enfermedad;
 
 
 
-@ManagedBean(name="Enfermedad")
+@ManagedBean(name="Enferm")
 @SessionScoped
 public class EnfermedadBean {
 	
 	@EJB
 	private DAOEnfermedadesBean DAOEnfermedadesBean;
 	
-	private long idEnfermedad;
-	private long gradoGravedad;
-	private NombreEnfermedad nombre;
-	public EnfermedadBean() {
+	private Enfermedad enfermedad; 
+	private List<Enfermedad> enfermedades = null;
+	
+	private List<Enfermedad> filteredEnfermedades;
+	private Enfermedad selectedEnfermedad; 
+	
+	public  EnfermedadBean(){
 		
 	}
-	public EnfermedadBean(long idEnfermedad, long gradoGravedad, NombreEnfermedad nombre) {
-		this.idEnfermedad = idEnfermedad;
-		this.gradoGravedad = gradoGravedad;
-		this.nombre = nombre;
-	}
-	public DAOEnfermedadesBean getDAOEnfermedadesBean() {
-		return DAOEnfermedadesBean;
-	}
-	public void setDAOEnfermedadesBean(DAOEnfermedadesBean dAOEnfermedadesBean) {
-		DAOEnfermedadesBean = dAOEnfermedadesBean;
-	}
-	public long getIdEnfermedad() {
-		return idEnfermedad;
-	}
-	public void setIdEnfermedad(long idEnfermedad) {
-		this.idEnfermedad = idEnfermedad;
-	}
-	public long getGradoGravedad() {
-		return gradoGravedad;
-	}
-	public void setGradoGravedad(long gradoGravedad) {
-		this.gradoGravedad = gradoGravedad;
-	}
-	public NombreEnfermedad getNombre() {
-		return nombre;
-	}
-	public void setNombre(NombreEnfermedad nombre) {
-		this.nombre = nombre;
-	}
 	
+	@PostConstruct
+	public void getEnfermedadesList() {
+		enfermedades = (List<Enfermedad>) DAOEnfermedadesBean.obtenerTodasEnfermedades();
+	}
+
+	public Enfermedad getEnfermedad() {
+		return enfermedad;
+	}
+
+	public void setEnfermedad(Enfermedad enfermedad) {
+		this.enfermedad = enfermedad;
+	}
+
+	public List<Enfermedad> getEnfermedades() {
+		return enfermedades;
+	}
+
+	public void setEnfermedades(List<Enfermedad> enfermedades) {
+		this.enfermedades = enfermedades;
+	}
+
+	public List<Enfermedad> getFilteredEnfermedades() {
+		return filteredEnfermedades;
+	}
+
+	public void setFilteredEnfermedades(List<Enfermedad> filteredEnfermedades) {
+		this.filteredEnfermedades = filteredEnfermedades;
+	}
+
+	public Enfermedad getSelectedEnfermedad() {
+		return selectedEnfermedad;
+	}
+
+	public void setSelectedEnfermedad(Enfermedad selectedEnfermedad) {
+		this.selectedEnfermedad = selectedEnfermedad;
+	}
+
 	
-	
+    
 }
