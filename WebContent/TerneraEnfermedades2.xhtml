@@ -15,14 +15,12 @@
 				 <header>  
 					  <h3>Listado de Enfermedades</h3>
 				 </header>
-					<h:form>
-				 	<div class="rowbtn">
-								<p:messages globalOnly="true" style = "color:red;margin:8px;" />
-					</div>
+<h:form>
 					    <p:dataTable id="tablaEnfermedadDT" var="enfermedadDT" value="#{Enfermedades.enfermedades}" widgetVar="terneraTabla" multiViewState="true"
 					                 rows="10" paginator="true"
 					                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 					                 rowsPerPageTemplate="5,10,15"
+					                 selectionMode="single" selection="#{Enfermedades.selectedEnfermedad}" rowKey="#{enfermedadDT.idEnfermedad}"
 					                 emptyMessage="No cars found with given criteria" filteredValue="#{Enfermedades.filteredEnfermedades}">
 						 
 						        <f:facet name="header">
@@ -31,27 +29,41 @@
 						                <p:inputText id="globalFilter" onkeyup="PF('terneraTabla').filter()" style="width:150px" placeholder="Ingrese Palabra"/>
 						            </p:outputPanel>
 						        </f:facet>
-
+						 			 <p:ajax event="rowSelect" update="" oncomplete="PF('enfermedadDialog').show()" />
+						        <!--  <p:ajax event="rowSelect" update=":form:enferDetail" oncomplete="PF('enferDialog').show()" />-->
+						 
 						        <p:column headerText="Id" filterBy="#{enfermedadDT.idEnfermedad}" sortBy="#{enfermedadDT.idEnfermedad}" filterMatchMode="contains">
 						            <h:outputText value="#{enfermedadDT.idEnfermedad}" />
 						        </p:column>
 						 
-						        <p:column headerText="Gravedad" filterBy="#{enfermedadDT.gradoGravedad}" sortBy="#{enfermedadDT.gradoGravedad}" filterMatchMode="contains">
+						        <p:column headerText="Gravedad" filterBy="#{enfermedadDT.gradoGravedad}" sortBy="#{enfermedadDT.gradoGravedad}" filterMatchMode="startsWith">
 						            <h:outputText value="#{enfermedadDT.gradoGravedad}" />
 						        </p:column>
 						        
-						        <p:column headerText="Nombre" filterBy="#{enfermedadDT.nombre}" sortBy="#{enfermedadDT.nombre}" filterMatchMode="contains">
+						        <p:column headerText="Nombre" filterBy="#{enfermedadDT.nombre}" sortBy="#{enfermedadDT.nombre}" filterMatchMode="startsWith">
 						            <h:outputText value="#{enfermedadDT.nombre}" />
 						        </p:column>
 						 
-						        <p:column style = "width: 70px">
-						           <h:commandButton action="#" value="editar" icon="ui-icon-search" />
-       
-						        </p:column>
+					 
 
 						    </p:dataTable>
 						 
-						    
+						    <p:dialog header="Enfermedad" widgetVar="enfermedadDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+						        <p:outputPanel id="enfermedadDetail" style="text-align:center;">
+						            <p:panelGrid  columns="2" rendered="#{not empty Enfermedades.selectedEnfermedad}" columnClasses="label,value">
+						 
+						                <h:outputText value="Id:" />
+						                <h:outputText value="#{Enfermedades.selectedEnfermedad.idEnfermedad}" />
+						 
+						                <h:outputText value="Gravedad" />
+						                <h:outputText value="#{Enfermedades.selectedEnfermedad.gradoGravedad}" />
+						 
+						                <h:outputText value="Nombre" />
+						                <h:outputText value="#{Enfermedades.selectedEnfermedad.nombre}" />
+						 
+						            </p:panelGrid>
+						        </p:outputPanel>
+						    </p:dialog>
 						</h:form>
     		</ui:define>
     		

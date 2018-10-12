@@ -18,7 +18,7 @@
 				 <h:form>
 				 	<div class="rowbtn">
 								<p:messages globalOnly="true" style = "color:red;margin:8px;" />
-							</div>
+					</div>
 
 
 					 
@@ -26,28 +26,35 @@
 					 <div  class="fila">
 						<div class="col1">Nombre:</div> 
 					    <div class="col2">
-							<p:selectOneMenu id="nombreEnfermedad">
-							 	<f:selectItem  itemLabel="Select One" itemValue="" />
-								 <f:selectItem  itemLabel="Uno" itemValue="uno" />
-								 <f:selectItem  itemLabel="Dos" itemValue="dos" />
-							 </p:selectOneMenu>
+					    
+					        <h:selectOneMenu  id="nombre" required="true" value="#{Enfermedad.nombre}" > 
+					        <f:selectItem  itemLabel="Selecione uno" itemValue="" />   
+						        <f:selectItems value="#{Enfermedad.nombreEnfermedades}"
+						                       var="e" itemValue="#{e}"
+						                       itemLabel="#{e.nombre}" />
+						    </h:selectOneMenu>
+					    
 						</div>
 					    <div class="col3"><h:message for="nombre" /></div>
 					</div>
      				<div  class="fila">
      					<div class="col1">Grado:</div> 
      					<div class="col2">
-							<p:selectOneMenu id="grado">
-					 	<f:selectItem  itemLabel="Select One" itemValue="" />
-							 <f:selectItem  itemLabel="Uno" itemValue="uno" />
-							 <f:selectItem  itemLabel="Dos" itemValue="dos" />
-						 </p:selectOneMenu>
+     					
+	    					<h:selectOneMenu id="gradoGravedad" value="#{Enfermedad.gradoGravedad}"  required="true" > 
+	    						<f:selectItem itemValue = "" itemLabel = "Seleccione uno" />
+							    <f:selectItem itemValue = "1" itemLabel = "1" /> 
+							    <f:selectItem itemValue = "2" itemLabel = "2" /> 
+							    <f:selectItem itemValue = "3" itemLabel = "3" />
+							</h:selectOneMenu> 		
+
      					
      					</div>
-     					<div class="col3"><h:message class="msgform" for="grado"  /></div>
+     					<div class="col3"><h:message class="msgform" for="gradoGravedad"  /></div>
      				</div>          
-    				<div class="rowbtn">  
-            			<h:commandButton action="#" value="Registrar" class="boton" />
+    				<div class="rowbtn"> 
+    					<h:commandButton action="#{Enfermedad.agregarTernera()}" value="Ingresar" class="boton" />
+            			
        				</div>
 					 
 					 

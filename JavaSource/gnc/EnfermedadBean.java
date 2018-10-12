@@ -1,71 +1,97 @@
 package gnc;
 
-import java.util.List;
-
-import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 
 import DAO.DAOEnfermedadesBean;
 import entidades.Enfermedad;
+import enumerados.NombreEnfermedad;
 
 
 
-@ManagedBean(name="Enferm")
+@ManagedBean(name="Enfermedad")
 @SessionScoped
 public class EnfermedadBean {
 	
 	@EJB
-	private DAOEnfermedadesBean DAOEnfermedadesBean;
+	private DAOEnfermedadesBean daoEnfermedad;
 	
-	private Enfermedad enfermedad; 
-	private List<Enfermedad> enfermedades = null;
+	private long idEnfermedad;
+	private long gradoGravedad;
+	private NombreEnfermedad nombre;
 	
-	private List<Enfermedad> filteredEnfermedades;
-	private Enfermedad selectedEnfermedad; 
-	
-	public  EnfermedadBean(){
+		
+	public EnfermedadBean() {
+		
 		
 	}
+
+
+	public long getIdEnfermedad() {
+		return idEnfermedad;
+	}
+
+
+	public void setIdEnfermedad(long idEnfermedad) {
+		this.idEnfermedad = idEnfermedad;
+	}
+
+	public long getGradoGravedad() {
+		return gradoGravedad;
+	}
+
+	public void setGradoGravedad(long gradoGravedad) {
+		this.gradoGravedad = gradoGravedad;
+	}
+
+	public NombreEnfermedad getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(NombreEnfermedad nombre) {
+		this.nombre = nombre;
+	}
 	
-	@PostConstruct
-	public void getEnfermedadesList() {
-		enfermedades = (List<Enfermedad>) DAOEnfermedadesBean.obtenerTodasEnfermedades();
+	public NombreEnfermedad[] getNombreEnfermedades(){
+		return NombreEnfermedad.values();
 	}
 
-	public Enfermedad getEnfermedad() {
-		return enfermedad;
-	}
+	public String agregarTernera() {
+		
+		FacesContext context = FacesContext.getCurrentInstance();
+		
 
-	public void setEnfermedad(Enfermedad enfermedad) {
-		this.enfermedad = enfermedad;
-	}
-
-	public List<Enfermedad> getEnfermedades() {
-		return enfermedades;
-	}
-
-	public void setEnfermedades(List<Enfermedad> enfermedades) {
-		this.enfermedades = enfermedades;
-	}
-
-	public List<Enfermedad> getFilteredEnfermedades() {
-		return filteredEnfermedades;
-	}
-
-	public void setFilteredEnfermedades(List<Enfermedad> filteredEnfermedades) {
-		this.filteredEnfermedades = filteredEnfermedades;
-	}
-
-	public Enfermedad getSelectedEnfermedad() {
-		return selectedEnfermedad;
-	}
-
-	public void setSelectedEnfermedad(Enfermedad selectedEnfermedad) {
-		this.selectedEnfermedad = selectedEnfermedad;
-	}
-
+		Enfermedad enferm = new Enfermedad (this.gradoGravedad,this.nombre);
+		
+		boolean existe = daoEnfermedad.existeEnfermedad(enferm);
+		if (existe) {
+			
+			context.addMessage(null,new FacesMessage(FacesMessage.SEVERITY_WARN,"La Enfermedad ya se encuentra registrada.",
+					"La enfermedad ya Existe!"));
+			return "NuevaEnfermedad";
+		}
+		
+		boolean almacenado = false;
+		
+    	try {
+    		daoEnfermedad.crearEnfermedad(enferm);
+    		
+    		context.addMessage(null,new FacesMessage(FacesMessage.SEVERITY_INFO,"La  Enfermedad se ha sido registrado con Éxito.",
+					"Enfermedad Registrada!"));
+    		return "TerneraEnfermedades";
 	
-    
+		} catch (Exception e) {
+			
+			context.addMessage(null,new FacesMessage(FacesMessage.SEVERITY_WARN,"Hubo un error al almacenar. Intente nuevamente más tarde",
+			"Error al registrar!"));
+			return "NuevaEnfermedad";
+		}
+    	
+
+    }
+	
+	
 }

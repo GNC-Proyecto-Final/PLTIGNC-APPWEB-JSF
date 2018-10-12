@@ -13,17 +13,14 @@
 			    </ui:define>
     		<ui:define name="contenido">
 				 <header>  
-					  <h3>Listado de Terneras Enfermas</h3>
+					  <h3>Listad de Terneras Enfermas</h3>
 				 </header>
 				<h:form>
-					<div class="rowbtn">
-								<p:messages globalOnly="true" style = "color:red;margin:8px;" />
-					</div>
-				
 					    <p:dataTable id="tablaternerasEnfermasDT" var="ternerasEnfermasDT" value="#{TerneraEnferma.ternerasEnfermas}" widgetVar="terneraEnfermaTabla" multiViewState="true"
 					                 rows="10" paginator="true"
 					                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 					                 rowsPerPageTemplate="5,10,15"
+					                 selectionMode="single" selection="#{TerneraEnferma.terneraEnfermaSeleccionada}" rowKey="#{ternerasEnfermasDT.id}"
 					                 emptyMessage="No cars found with given criteria" filteredValue="#{TerneraEnferma.filtrarTernerasEnfermas}">
 						 
 						        <f:facet name="header">
@@ -32,19 +29,21 @@
 						                <p:inputText id="globalFilter" onkeyup="PF('terneraEnfermaTabla').filter()" style="width:150px" placeholder="Ingrese Palabra"/>
 						            </p:outputPanel>
 						        </f:facet>
-
+						 			<p:ajax event="rowSelect" update="" oncomplete="PF('enferDialog').show()" />
+						        <!--  <p:ajax event="rowSelect" update=":form:enferDetail" oncomplete="PF('enferDialog').show()" />-->
+						 
 						        <p:column headerText="Id Ternera" filterBy="#{ternerasEnfermasDT.ternera.idTernera}" sortBy="#{ternerasEnfermasDT.ternera.idTernera}" filterMatchMode="contains">
 						            <h:outputText value="#{ternerasEnfermasDT.ternera.idTernera}" />
 						        </p:column>
 						 
-						        <p:column headerText="Caravana" filterBy="#{ternerasEnfermasDT.ternera.nroCaravana}" sortBy="#{ternerasEnfermasDT.ternera.nroCaravana}" filterMatchMode="contains">
+						        <p:column headerText="Caravana" filterBy="#{ternerasEnfermasDT.ternera.nroCaravana}" sortBy="#{ternerasEnfermasDT.ternera.nroCaravana}" filterMatchMode="startsWith">
 						            <h:outputText value="#{ternerasEnfermasDT.ternera.nroCaravana}" />
 						        </p:column>
 						        <p:column headerText="Id Enferm." filterBy="#{ternerasEnfermasDT.enfermedad.idEnfermedad}" sortBy="#{ternerasEnfermasDT.enfermedad.idEnfermedad}" filterMatchMode="contains">
 						            <h:outputText value="#{ternerasEnfermasDT.enfermedad.idEnfermedad}" />
 						        </p:column>
 						 
-						        <p:column headerText="N. Enfer." filterBy="#{ternerasEnfermasDT.enfermedad.nombre}" sortBy="#{ternerasEnfermasDT.enfermedad.nombre}" filterMatchMode="contains">
+						        <p:column headerText="N. Enfer." filterBy="#{ternerasEnfermasDT.enfermedad.nombre}" sortBy="#{ternerasEnfermasDT.enfermedad.nombre}" filterMatchMode="startsWith">
 						            <h:outputText value="#{ternerasEnfermasDT.enfermedad.nombre}" />
 						        </p:column>
 						        						        
@@ -54,7 +53,7 @@
 									</h:outputText>
 						        </p:column>
 						 
-						        <p:column headerText="F. Fin" filterBy="#{ternerasEnfermasDT.fechaHasta}" sortBy="#{ternerasEnfermasDT.fechaHasta}" filterMatchMode="contains">
+						        <p:column headerText="F. Fin" filterBy="#{ternerasEnfermasDT.fechaHasta}" sortBy="#{ternerasEnfermasDT.fechaHasta}" filterMatchMode="startsWith">
 						            <h:outputText value="#{ternerasEnfermasDT.fechaHasta}" >
 									    <f:convertDateTime pattern="dd/MM/yyyy" />
 									</h:outputText>
@@ -62,14 +61,40 @@
 						        <p:column headerText="Notas" filterBy="#{ternerasEnfermasDT.observacion}" sortBy="#{ternerasEnfermasDT.observacion}" filterMatchMode="contains">
 						            <h:outputText value="#{ternerasEnfermasDT.observacion}" />
 						        </p:column>
-						       <p:column style = "width: 70px">
-						           <h:commandButton action="#" value="editar" icon="ui-icon-search" />
-       
-						        </p:column>
+
 
 						    </p:dataTable>
 						 
-
+						    <p:dialog header="Enfermedad" widgetVar="enferDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+						        <p:outputPanel id="enferDetail" style="text-align:center;">
+						            <p:panelGrid  columns="2" rendered="#{not empty TerneraEnferma.terneraEnfermaSeleccionada}" columnClasses="label,value">
+						 
+						                <h:outputText value="Id Ternera:" />
+						                <h:outputText value="#{TerneraEnferma.terneraEnfermaSeleccionada.ternera.idTernera}" />
+						 
+						                <h:outputText value="Caravana:" />
+						                <h:outputText value="#{TerneraEnferma.terneraEnfermaSeleccionada.ternera.nroCaravana}" />
+						 
+						 				<h:outputText value="Id Enfermedad:" />
+						                <h:outputText value="#{TerneraEnferma.terneraEnfermaSeleccionada.enfermedad.idEnfermedad}" />
+						                
+						                <h:outputText value="Nombre Enf.:" />
+						                <h:outputText value="#{TerneraEnferma.terneraEnfermaSeleccionada.enfermedad.nombre.nombre}" />
+										    
+						 				<h:outputText value="Fecha Ini:" />
+						                <h:outputText value="#{TerneraEnferma.terneraEnfermaSeleccionada.id.fechaDesde}" >
+										    <f:convertDateTime pattern="dd/MM/yyyy" />
+										</h:outputText>
+						                
+						                <h:outputText value="Fecha Fin:" />
+						                <h:outputText value="#{TerneraEnferma.terneraEnfermaSeleccionada.fechaHasta}" >
+						 					<f:convertDateTime pattern="dd/MM/yyyy" />
+										</h:outputText>
+						 				<h:outputText value="Observaciones:" />
+						                <h:outputText value="#{TerneraEnferma.terneraEnfermaSeleccionada.observacion}" />						                
+						            </p:panelGrid>
+						        </p:outputPanel>
+						    </p:dialog>
 						</h:form>
     		</ui:define>
     		
