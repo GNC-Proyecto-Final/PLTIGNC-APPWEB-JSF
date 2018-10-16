@@ -1,10 +1,10 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
 <html xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:f="http://java.sun.com/jsf/core"
-    xmlns:h="http://java.sun.com/jsf/html"
-    xmlns:ui="http://java.sun.com/jsf/facelets"
-    xmlns:p="http://primefaces.org/ui">
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
         <h:body>
     	
     	<ui:composition template="/template/GNCPlantilla.xhtml">
@@ -15,9 +15,10 @@
 				 <header>  
 					  <h3>Ingrese Datos Nueva Ternera Enferma</h3>
 				 </header>
-				 <h:form>
+				 <h:form id="form">
 				 	<div class="rowbtn">
 								<p:messages globalOnly="true" style = "color:red;margin:8px;" />
+								 <p:growl id="growl" showDetail="true" />
 							</div>
 
 
@@ -26,48 +27,118 @@
 					 <div  class="fila">
 						<div class="col1">Ternera</div> 
 					    <div class="col2">
-							    <p:inputNumber id="input1" value="0" decimalPlaces="0"/>   
-				                    
+    							 <p:inputNumber id="terneraId" value="#{terneraEnferma.terneraId}" decimalPlaces="0"/>  
+    						
+          	         	 <p:commandButton update=":form:terneraDetail" oncomplete="PF('terneraDialog').show()" icon="ui-icon-search" title="View" >
+			                <f:setPropertyActionListener value="#{ternera}" target="#{ternera}" />
+			            </p:commandButton>	
 						</div>
-					    <div class="col3"><h:message for="ternera" /></div>
+					    <div class="col3"><h:message for="terneraId" /></div>
 					</div>
 					<div  class="fila">
      					<div class="col1">Enfermedad:</div> 
      					<div class="col2">
-							  <p:inputNumber id="enfermedad" value="0" decimalPlaces="0"/>   
-     					
+							  <p:inputNumber id="enfermedadId" value="#{terneraEnferma.enfermedadId}" decimalPlaces="0"/>   
+		     					<p:commandButton update=":form:enfermedadDetail" oncomplete="PF('enfermedadDialog').show()" icon="ui-icon-search" title="View" >
+					                <f:setPropertyActionListener value="#{enfermedad}" target="#{enfermedad}" />
+					            </p:commandButton>	
      					</div>
-     					<div class="col3"><h:message class="msgform" for="enfermedad"  /></div>
+     					<div class="col3"><h:message class="msgform" for="enfermedadId"  /></div>
      				</div> 
 					 <div  class="fila">
 						<div class="col1">Fecha Inicio</div> 
 					    <div class="col2">
-					   		 <p:calendar id="fechaIni" value="" locale="es" navigator="true" pattern="dd/MM/yyyy"  />
+					   		 <p:calendar id="fechaDesde" value="#{terneraEnferma.fechaDesde}" locale="es" navigator="true" pattern="dd/MM/yyyy" mask="99/99/9999" />
 						</div>
-					    <div class="col3"><h:message for="fechaInicio" /></div>
+					    <div class="col3"><h:message for="fechaDesde" /></div>
 					</div>					
 					
 					 <div  class="fila">
 						<div class="col1">Fecha Fin</div> 
 					    <div class="col2">
-					   		 <p:calendar id="fechaFin" value="" locale="es" navigator="true" pattern="dd/MM/yyyy"  />
+					   		 <p:calendar id="fechaHasta" value="#{terneraEnferma.fechaHasta}" locale="es" navigator="true" pattern="dd/MM/yyyy"  mask="99/99/9999" />
 						</div>
-					    <div class="col3"><h:message for="fechaFin" /></div>
+					    <div class="col3"><h:message for="fechaHasta" /></div>
 					</div>		
 					
 					<div  class="fila">
 						<div class="col1">Otros Aspectos</div> 
 					    <div class="col2">
-   							 <p:inputTextarea rows="10" cols="50" queryDelay="750" minQueryLength="4" />
+   							 <p:inputTextarea id="observacion" value="#{terneraEnferma.observacion}" rows="10" cols="50" queryDelay="250" minQueryLength="4" />
  					</div>
-					    <div class="col3"><h:message for="OtrosAspectos" /></div>
+					    <div class="col3"><h:message for="observacion" /></div>
 					</div>	
          
     				<div class="rowbtn">  
-            			<h:commandButton action="#" value="Registrar" class="boton" />
+            			<h:commandButton action="#{terneraEnferma.agregarTerneraEnferma()}" value="Registrar" class="boton" />
+            			
        				</div>
-					 
-					 
+       				
+       				
+       				
+       				
+       				
+       				
+					   <p:dialog width="500px" header="Terneras" widgetVar="terneraDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+							<p:outputPanel id="terneraDetail" style="text-align:center;">
+							<p:dataTable id="tableTerneraDT" var="ter" value="#{ternerasDT.terneras}" widgetVar="terneraTable" multiViewState="true"
+               					  rows="5" paginator="true"
+             					  paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} "
+              					  emptyMessage="No hay terneras para el criterio Seleccionado" filteredValue="#{ternerasDT.filteredTerneras}">
+ 
+			 
+							       					 
+							        <p:column headerText="Id" filterBy="#{ter.idTernera}" sortBy="#{ter.idTernera}" filterMatchMode="contains">
+							            <h:outputText value="#{ter.idTernera}" />
+							        </p:column>
+							        <p:column headerText="Caravana" filterBy="#{ter.nroCaravana}" sortBy="#{ter.nroCaravana}" filterMatchMode="contains">
+							            <h:outputText value="#{ter.nroCaravana}" />
+							        </p:column>
+							        <p:column headerText="Fecha N." filterBy="#{ter.fechaNacimiento}" sortBy="#{ter.fechaNacimiento}" filterMatchMode="contains">
+							            <h:outputText value="#{ter.fechaNacimiento}">
+						           	 		<f:convertDateTime pattern="dd/MM/yyyy" />
+										</h:outputText>
+							        </p:column>				 
+							        <p:column headerText="Raza" filterBy="#{ter.raza}" sortBy="#{ter.raza}" filterMatchMode="contains">
+							            <h:outputText value="#{ter.raza}" />
+							        </p:column>	
+							         <p:column style="width:32px;text-align: center">
+						             <p:commandButton update=":form:terneraId" oncomplete="PF('terneraDialog').hide()" icon="ui-icon-search" title="View">
+						                <f:setPropertyActionListener value="#{ter.idTernera}" target="#{terneraEnferma.terneraId}" />
+						           	 </p:commandButton>
+						       		 </p:column>
+							    </p:dataTable>
+							</p:outputPanel>
+					    </p:dialog>
+ 
+ 
+ 					   <p:dialog width="500px" header="Enfermedades" widgetVar="enfermedadDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+							<p:outputPanel id="enfermedadDetail" style="text-align:center;">
+							<p:dataTable id="tableEnfermedadDT" var="enferm" value="#{Enfermedades.enfermedades}" widgetVar="enfermedadTable" multiViewState="true"
+               					  rows="5" paginator="true"
+             					  paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} "
+              					  emptyMessage="No hay enfermedad para el criterio Seleccionado" filteredValue="#{Enfermedades.filteredEnfermedades}">
+ 
+			 
+						 
+							        <p:column headerText="Id" filterBy="#{enferm.idEnfermedad}" sortBy="#{enferm.idEnfermedad}" filterMatchMode="contains">
+							            <h:outputText value="#{enferm.idEnfermedad}" />
+							        </p:column>
+							        <p:column headerText="Nombre" filterBy="#{enferm.nombre.nombre}" sortBy="#{enferm.nombre.nombre}" filterMatchMode="contains">
+							            <h:outputText value="#{enferm.nombre.nombre}" />
+							        </p:column>
+							        <p:column headerText="Gravedad" filterBy="#{enferm.gradoGravedad}" sortBy="#{enferm.gradoGravedad}" filterMatchMode="contains">
+							            <h:outputText value="#{enferm.gradoGravedad}" />
+							        </p:column>				 
+							         <p:column style="width:32px;text-align: center">
+						             <p:commandButton update=":form:enfermedadId" oncomplete="PF('enfermedadDialog').hide()" icon="ui-icon-search" title="View">
+						                <f:setPropertyActionListener value="#{enferm.idEnfermedad}" target="#{terneraEnferma.enfermedadId}" />
+						           	 </p:commandButton>
+						       		 </p:column>
+							    </p:dataTable>
+							</p:outputPanel>
+					    </p:dialog>
+  			
 				</h:form>
     		</ui:define>
     		

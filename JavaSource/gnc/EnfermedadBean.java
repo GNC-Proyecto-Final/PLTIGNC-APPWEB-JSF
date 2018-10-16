@@ -22,14 +22,11 @@ public class EnfermedadBean {
 	private long idEnfermedad;
 	private long gradoGravedad;
 	private NombreEnfermedad nombre;
-	
 		
 	public EnfermedadBean() {
 		
 		
 	}
-
-
 	public long getIdEnfermedad() {
 		return idEnfermedad;
 	}
@@ -73,9 +70,7 @@ public class EnfermedadBean {
 					"La enfermedad ya Existe!"));
 			return "NuevaEnfermedad";
 		}
-		
-		boolean almacenado = false;
-		
+			
     	try {
     		daoEnfermedad.crearEnfermedad(enferm);
     		
@@ -89,9 +84,5 @@ public class EnfermedadBean {
 			"Error al registrar!"));
 			return "NuevaEnfermedad";
 		}
-    	
-
-    }
-	
-	
+    }	
 }
