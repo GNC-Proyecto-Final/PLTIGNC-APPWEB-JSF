@@ -45,8 +45,9 @@
 						        </p:column>
 						 
 						        <p:column style = "width: 70px">
-						           <h:commandButton action="#" value="editar" icon="ui-icon-search" />
-       
+						           <h:commandButton action="#{Enfermedad.abrirEliminarEnfermedad()}" value="eliminar" icon="ui-icon-search" >
+						            	<f:param name="enfermedadId" value="#{enfermedadDT.idEnfermedad}"/>
+       							  </h:commandButton>
 						        </p:column>
 
 						    </p:dataTable>

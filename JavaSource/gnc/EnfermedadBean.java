@@ -1,5 +1,7 @@
 package gnc;
 
+import java.util.Map;
+
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -7,6 +9,7 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
 import DAO.DAOEnfermedadesBean;
+import DAO.DAOEnfermedadTernerasBean;
 import entidades.Enfermedad;
 import enumerados.NombreEnfermedad;
 
@@ -19,10 +22,16 @@ public class EnfermedadBean {
 	@EJB
 	private DAOEnfermedadesBean daoEnfermedad;
 	
+	
+	
+	@EJB
+	private DAOEnfermedadTernerasBean daoEnfermedadTernera;
 	private long idEnfermedad;
 	private long gradoGravedad;
 	private NombreEnfermedad nombre;
 		
+	private Enfermedad enfermedad;
+	
 	public EnfermedadBean() {
 		
 		
@@ -56,6 +65,12 @@ public class EnfermedadBean {
 		return NombreEnfermedad.values();
 	}
 
+	public Enfermedad getEnfermedad() {
+		return enfermedad;
+	}
+	public void setEnfermedad(Enfermedad enfermedad) {
+		this.enfermedad = enfermedad;
+	}
 	public String agregarTernera() {
 		
 		FacesContext context = FacesContext.getCurrentInstance();
@@ -76,13 +91,64 @@ public class EnfermedadBean {
     		
     		context.addMessage(null,new FacesMessage(FacesMessage.SEVERITY_INFO,"La  Enfermedad se ha sido registrado con Éxito.",
 					"Enfermedad Registrada!"));
-    		return "TerneraEnfermedades";
+    		return "enfermedades";
 	
 		} catch (Exception e) {
 			
 			context.addMessage(null,new FacesMessage(FacesMessage.SEVERITY_WARN,"Hubo un error al almacenar. Intente nuevamente más tarde",
 			"Error al registrar!"));
-			return "NuevaEnfermedad";
+			return "nuevaEnfermedad";
 		}
     }	
+	public String abrirEliminarEnfermedad() {
+		
+	      FacesContext fc = FacesContext.getCurrentInstance();
+	      Map<String,String> params =  fc.getExternalContext().getRequestParameterMap();
+	      long enfermedadId = Long.parseLong(params.get("enfermedadId")); 
+	      enfermedad = daoEnfermedad.obtenerEnfermedadId(enfermedadId);
+	      return "eliminarEnfermedad";
+	}
+	public String cancelaEliminar(){
+		FacesContext context = FacesContext.getCurrentInstance();
+		context.addMessage(null,new FacesMessage(FacesMessage.SEVERITY_INFO, "Ha cancelado la eliminación de la enfermedad",
+				"Cancelo la eliminación!"));
+		return "enfermedades";
+	}
+	
+	public String eliminarEnfermedad() {
+		FacesContext fc = FacesContext.getCurrentInstance();
+	      Map<String,String> params =  fc.getExternalContext().getRequestParameterMap();
+	      long enfermedadId = Long.parseLong(params.get("enfermedadId")); 
+		
+		Enfermedad enfermedad = daoEnfermedad.obtenerEnfermedadId(enfermedadId);
+		
+		FacesContext context = FacesContext.getCurrentInstance();
+		boolean existe = daoEnfermedadTernera.obtenerTerneraEnfermaExiste(enfermedad.getIdEnfermedad());
+		
+		
+		if(existe){
+			context.addMessage(null,new FacesMessage(FacesMessage.SEVERITY_WARN, "La Enfermedad tiene registros Asociados,imposible Eliminar",
+					"Error al Eliminar!"));
+					return null;
+		}
+		else{
+			try {
+				daoEnfermedad.eliminarEnfermedad(enfermedad);
+				context.addMessage(null,new FacesMessage(FacesMessage.SEVERITY_INFO, "La  Enfermedad se ha sido Eliminado con exito.",
+									"Enfermedad Elimada!"));
+						return "enfermedades";
+				
+				
+			}catch (Exception e) {
+				context.addMessage(null,new FacesMessage(FacesMessage.SEVERITY_WARN, "Hubo un error al almacenar. Intente nuevamente mas tarde",
+									"Error al registrar!"));
+					return null;
+			}
+			
+			
+			
+		}
+	
+		
+		}
 }

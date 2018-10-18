@@ -4,10 +4,11 @@
   SHAPE="32,17,0,0" model-entity="JSFProcessGroup">
   <PROCESS-ITEM ID="rules:#login.xhtml:0" NAME="item"
    PATH="/login.xhtml" model-entity="JSFProcessItem">
-   <PROCESS-ITEM-OUTPUT ID="mostrar::#mostrar.xhtml" NAME="output"
-    PATH="/mostrar.xhtml" TARGET="rules:#mostrar.xhtml" TITLE="mostrar" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="mostrar::#bienvenido.xhtml" NAME="output"
+    PATH="/bienvenido.xhtml" TARGET="rules:#bienvenido.xhtml"
+    TITLE="mostrar" model-entity="JSFProcessItemOutput"/>
   </PROCESS-ITEM>
  </PROCESS-ITEM>
- <PROCESS-ITEM NAME="rules:#mostrar.xhtml" PATH="/mostrar.xhtml"
+ <PROCESS-ITEM NAME="rules:#bienvenido.xhtml" PATH="/bienvenido.xhtml"
   SHAPE="256,33,0,0" model-entity="JSFProcessGroup"/>
 </PROCESS>

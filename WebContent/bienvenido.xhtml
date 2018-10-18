@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://java.sun.com/jsf/html"> 
+        <h:body>
+    	
+    	<ui:composition template="/template/GNCPlantilla.xhtml">
+    	
+    		<ui:define name="contenido">
+				 <header>  
+					  <h2>Bienvenido/a</h2>
+				 </header>
+				 <h:form>
+					<p:message id="mensajeGral" />
+
+   					<div  class="fila">
+     					<div class="col1">Usuario:</div> 
+     					<div class="col2">    					
+	    					<h:outputLabel value="#{usuario.idUsuario}" />
+     					</div>
+     					 <div class="col3"><h:message for="nombre" /></div>
+     				</div>
+   					<div  class="fila">
+     					<div class="col1">Nombre:</div> 
+     					<div class="col2">    					
+	    					<h:outputLabel value="#{usuario.nombre}" />
+     					</div>
+     					 <div class="col3"></div>
+     				</div>    					
+     				<div  class="fila">
+     					<div class="col1">Apellido:</div> 
+     					<div class="col2">    					
+	    					<h:outputLabel value="#{usuario.apellido}" />
+     					</div>
+     					 <div class="col3"></div>
+     				</div>      					
+     				
+     				<div  class="fila">
+     					<div class="col1">Perfil:</div> 
+     					<div class="col2">    					
+	    					<h:outputLabel value="#{usuario.perfil}" />
+     					</div>
+     					 <div class="col3"></div>
+     				</div>    					
+      				
+			
+				</h:form>
+    		</ui:define>
+    		
+    	</ui:composition>
+    	
+    </h:body>
+
+</html>

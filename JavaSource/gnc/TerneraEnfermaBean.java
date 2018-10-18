@@ -3,20 +3,12 @@ package gnc;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-
 import javax.ejb.EJB;
-
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
-import javax.faces.event.ActionEvent;
-
-import org.primefaces.PrimeFaces;
-import org.primefaces.context.RequestContext;
-import org.primefaces.event.SelectEvent;
+import javax.swing.JOptionPane;
 
 import DAO.DAOEnfermedadTernerasBean;
 import DAO.DAOTernerasBean;
@@ -25,6 +17,7 @@ import entidades.Enfermedad;
 import entidades.EnfermedadTernera;
 import entidades.EnfermedadTerneraPK;
 import entidades.Ternera;
+import excepciones.GNCException;
 
 
 
@@ -179,7 +172,7 @@ public class TerneraEnfermaBean {
 					
 					context.addMessage(null,new FacesMessage(FacesMessage.SEVERITY_INFO,  "la  Enfermedad por Ternera se ha sido registrado con Exito.",
 							"Enfermedad Registrada!"));
-					return "TernerasEnfermas";
+					return "ternerasEnfermas";
 		
 				
 				} catch (Exception e) {
@@ -208,7 +201,7 @@ public class TerneraEnfermaBean {
 					daoTerneraEnferma.crearEnfermedadTernera(terneraEnferma);
 					context.addMessage(null,new FacesMessage(FacesMessage.SEVERITY_INFO,  "la  Enfermedad por Ternera se ha sido registrado con Exito.",
 							"Enfermedad Registrada!"));
-					return "TernerasEnfermas";
+					return "ternerasEnfermas";
 					
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
@@ -322,7 +315,6 @@ public class TerneraEnfermaBean {
 		
 	}
 	
-	
-
+				
 	
 }

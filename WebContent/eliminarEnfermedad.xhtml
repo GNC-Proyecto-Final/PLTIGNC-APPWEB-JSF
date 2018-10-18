@@ -1,0 +1,96 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui">
+        <h:body>
+    	
+    	<ui:composition template="/template/GNCPlantilla.xhtml">
+    		<ui:define name ="titulo">
+			        Nueva Enfermedad
+			    </ui:define>
+    		<ui:define name="contenido">
+				 <header>  
+					  <h2>Eliminar Enfermedad</h2>
+				 </header>
+				 
+				 
+				 <h:form id="form">
+				 	<div class="rowbtn">
+						<p:messages globalOnly="true" style = "color:red;margin:8px;" />
+					</div>
+
+					<div  class="fila">
+     					<div class="col1">Id Ternera:</div> 
+     					<div class="col2">    					
+	    					<h:outputLabel value="#{Enfermedad.enfermedad.idEnfermedad}" />
+     					</div>
+     					<div class="col3"></div>
+     				</div>
+   					<div  class="fila">
+     					<div class="col1">Nombre Enfermedad:</div> 
+     					<div class="col2">    					
+	    					<h:outputLabel value="#{Enfermedad.enfermedad.nombre}" />
+     					</div>
+     					<div class="col3"></div>
+     				</div>     					    					
+     				<div  class="fila">
+     					<div class="col1">Grado de Gravedad:</div> 
+     					<div class="col2">    					
+	    					<h:outputLabel value="#{Enfermedad.enfermedad.gradoGravedad}" />
+     					</div>
+     					<div class="col3"></div>
+     				</div>
+
+					<div  class="fila">
+     					<div class="col1">
+     					    <div class="rowbtn"> 
+       							<h:commandButton action="#{Enfermedad.cancelaEliminar()}" value="Cancelar" class="boton" title="Cancelar"  />
+					 		</div>
+						</div> 
+     					<div class="col2">    			
+     						<div class="rowbtn"> 
+		          	         	 <p:commandButton update=":form:enfermedadDetail" oncomplete="PF('enfermedadDialog').show()" title="Eliminar" class="boton" style="height: 25px;">
+					                <f:setPropertyActionListener value="#{enfermedad}" target="#{enfermedad}" />
+					            </p:commandButton>			       				
+					       </div>
+     					</div>
+     					<div class="col3"></div>
+     				</div>
+					         
+
+             
+			          <p:dialog  header="¿Confirma Eliminar Enfemedad?" widgetVar="enfermedadDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+							<p:outputPanel id="enfermedadDetail" style="text-align:center;">
+								
+								<h:panelGrid columns="2" style="text-align: left;">
+									<h:outputLabel value="Id Enfermedad:" />
+									<h:outputLabel value="#{Enfermedad.enfermedad.idEnfermedad}" />
+									<h:outputLabel value="Nombre:" />
+									<h:outputLabel value="#{Enfermedad.enfermedad.nombre}" />
+									<h:outputLabel value="Grado:" />
+									<h:outputLabel value="#{Enfermedad.enfermedad.gradoGravedad}" />
+								</h:panelGrid>
+									
+									<div class="rowbtn"> 
+										<h:commandButton action="#{Enfermedad.eliminarEnfermedad()}" value="Aceptar" class="boton"  >
+											<f:param name="enfermedadId" value="#{Enfermedad.enfermedad.idEnfermedad}"/>
+										</h:commandButton>						
+									</div>
+								
+							</p:outputPanel>
+						</p:dialog>
+ 
+             
+             
+             
+				</h:form>
+    		</ui:define>
+    		
+    	</ui:composition>
+    	
+    </h:body>
+
+</html>

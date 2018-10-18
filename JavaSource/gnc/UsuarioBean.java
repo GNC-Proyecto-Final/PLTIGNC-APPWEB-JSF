@@ -93,7 +93,7 @@ public class UsuarioBean {
 					this.setPerfil(us.getPerfil());
 					this.setIdUsuario(us.getIdUsuario());
 					
-					return "mostrar";
+					return "bienvenido";
 				}else{
 
 							 	context.addMessage(null,new FacesMessage(FacesMessage.SEVERITY_WARN,

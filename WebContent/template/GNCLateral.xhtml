@@ -36,12 +36,12 @@
 			        <p:separator />
 			        <p:submenu label="Enfermedades">
 			        	<p:submenu label="Registro">
-			                <p:menuitem value="Nueva Enfermedad" action="NuevaEnfermedad" ajax="false"/>
-			                <p:menuitem value="Ternera Enferma" action="NuevaTerneraEnferma" ajax="false"/>
+			                <p:menuitem value="Nueva Enfermedad" action="#{navegacion.nuevaEnfermedad()}" ajax="false"/>
+			                <p:menuitem value="Ternera Enferma" action="#{navegacion.nuevaTerneraEnferma()}" ajax="false"/>
 			            </p:submenu>	     
 			            <p:submenu label="Listado">
-			                <p:menuitem value="Enfermedades" action="TerneraEnfermedades" ajax="false"/>
-			                <p:menuitem value="Terneras Enfermas" action="TernerasEnfermas" ajax="false"/>
+			                <p:menuitem value="Enfermedades" action="#{navegacion.terneraEnfermedades()}" ajax="false"/>
+			                <p:menuitem value="Terneras Enfermas" action="#{navegacion.ternerasEnfermas()}" ajax="false"/>
 			            </p:submenu>
 			           
 			        </p:submenu>
