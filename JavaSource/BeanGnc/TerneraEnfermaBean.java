@@ -1,23 +1,24 @@
-package gnc;
+package BeanGnc;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Map;
+
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
-import javax.swing.JOptionPane;
-
 import DAO.DAOEnfermedadTernerasBean;
 import DAO.DAOTernerasBean;
+
 import DAO.DAOEnfermedadesBean;
 import entidades.Enfermedad;
 import entidades.EnfermedadTernera;
 import entidades.EnfermedadTerneraPK;
 import entidades.Ternera;
-import excepciones.GNCException;
+
 
 
 
@@ -43,10 +44,9 @@ public class TerneraEnfermaBean {
 	private Enfermedad enfermedad;
 	private Ternera ternera;
 	
+	private EnfermedadTernera terneraEnferma;
 	private Date dateInicio,dateFin,dateNacim;
-	
-	 
-
+		 
 	public TerneraEnfermaBean() {
 	
 	}
@@ -114,8 +114,15 @@ public class TerneraEnfermaBean {
 	public void setTernera(Ternera ternera) {
 		this.ternera = ternera;
 	}
-	
-	
+		
+	public EnfermedadTernera getTerneraEnferma() {
+		return terneraEnferma;
+	}
+
+	public void setTerneraEnferma(EnfermedadTernera terneraEnferma) {
+		this.terneraEnferma = terneraEnferma;
+	}
+
 	public String agregarTerneraEnferma() {
 		FacesContext context = FacesContext.getCurrentInstance();	
 		Long idTernera=Long.parseLong(this.getTerneraId());		
@@ -172,7 +179,7 @@ public class TerneraEnfermaBean {
 					
 					context.addMessage(null,new FacesMessage(FacesMessage.SEVERITY_INFO,  "la  Enfermedad por Ternera se ha sido registrado con Exito.",
 							"Enfermedad Registrada!"));
-					return "ternerasEnfermas";
+					return "/ternerasEnfermas.xhtml?faces-redirect=true";
 		
 				
 				} catch (Exception e) {
@@ -201,7 +208,7 @@ public class TerneraEnfermaBean {
 					daoTerneraEnferma.crearEnfermedadTernera(terneraEnferma);
 					context.addMessage(null,new FacesMessage(FacesMessage.SEVERITY_INFO,  "la  Enfermedad por Ternera se ha sido registrado con Exito.",
 							"Enfermedad Registrada!"));
-					return "ternerasEnfermas";
+					return "/ternerasEnfermas.xhtml?faces-redirect=true";
 					
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
@@ -218,6 +225,7 @@ public class TerneraEnfermaBean {
 		
 		
     }
+	
 	public void  formatoFecha(){
 		
 		Date fechaInicio = (Date) this.getFechaDesde();
@@ -254,12 +262,13 @@ public class TerneraEnfermaBean {
 			e.printStackTrace();
 		}
 	}
+	
 	public boolean validarFecha(){
 		
 		boolean fechaValida= false;
 		
-		Date fechaInicio =  this.dateInicio;
-		Date fechaFin = this.dateFin;
+		//Date fechaInicio =  this.dateInicio;
+		//Date fechaFin = this.dateFin;
 		Date fecha = new Date();
 		
 			if(!(fechaDesde==null)&& !(fechaHasta==null)){
@@ -315,6 +324,135 @@ public class TerneraEnfermaBean {
 		
 	}
 	
+	public String abrirEditarTerneraEnferma() {
+		
+	      FacesContext fc = FacesContext.getCurrentInstance();
+	      Map<String,String> params =  fc.getExternalContext().getRequestParameterMap();
+	      long enfermedadId = Long.parseLong(params.get("enfermedadId")); 
+	      long terneraId = Long.parseLong(params.get("terneraId")); 
+	      String fecha = params.get("fechaInicio");
+	      SimpleDateFormat dt1 = new SimpleDateFormat("yyyy-MM-dd");
+			try {
+				dateInicio = dt1.parse(fecha);
+			} catch (ParseException e1) {
+				e1.printStackTrace();
+			}
+	
+			ternera = daoTernera.obtenerTerneraId(terneraId);
+			
+			enfermedad= daoEnfermedad.obtenerEnfermedadId(enfermedadId);
+			
+			EnfermedadTerneraPK pk = new EnfermedadTerneraPK();
+			pk.setIdEnfermedad(enfermedadId);
+			pk.setIdTernera(terneraId);
+			pk.setFechaDesde(dateInicio);
+			EnfermedadTernera ternEnf = new EnfermedadTernera (pk,ternera,enfermedad);
+			terneraEnferma = this.daoTerneraEnferma.obtenerTerneraEnfermaFecha(ternEnf);
+			this.id = this.terneraEnferma.getId();
+			this.fechaHasta = terneraEnferma.getFechaHasta();
+			this.enfermedadId = String.valueOf(terneraEnferma.getEnfermedad().getIdEnfermedad());
+			this.terneraId = String.valueOf(terneraEnferma.getTernera().getIdTernera());
+			this.observacion = terneraEnferma.getObservacion();
+	     
+	      return "editarTerneraEnferma";
+	}
+	
+	public void  formatoFechaEditar(){
+		
+		Date fechaFin = (Date) this.getFechaHasta();
+		
+		
+		SimpleDateFormat dt1 = new SimpleDateFormat("dd/MM/yyyy");
+		
+		try {
+			if(!(fechaFin==null)){
+
+				String dtf = dt1.format(fechaFin);
+				dateFin = dt1.parse(dtf);
 				
+			}
+
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
+	public boolean validarFechaEditar(){
+		
+		boolean fechaValida= false;
+	
+		
+		Date fecha = new Date();
+		if(!(this.fechaHasta == null)){
+			if(dateFin.compareTo(fecha)<=0 && dateInicio.compareTo(dateFin)<=0){
+				fechaValida= true;
+			}
+		}else if(this.fechaHasta==null){
+			fechaValida=true;
+		}
+		
+		return fechaValida;
+		
+	}
+	public String editarTerneraEnferma() {
+		
+		FacesContext context = FacesContext.getCurrentInstance();	
+		
+		ternera = daoTernera.obtenerTerneraId(this.terneraEnferma.getId().getIdTernera());	
+		enfermedad = daoEnfermedad.obtenerEnfermedadId(this.terneraEnferma.getId().getIdEnfermedad());
+		
+		
+		
+		this.fechaDesde = this.terneraEnferma.getId().getFechaDesde();
+		formatoFechaEditar();
+		String aspectSan =  this.observacion;
+		
+		
+				
+		if(this.fechaHasta == null){
+			
+			context.addMessage(null,new FacesMessage(FacesMessage.SEVERITY_INFO, "Verifique final esta vacia", "Fechas Incorrectas!"));
+			return null;
+			//return "ternerasEnfermas";
+		}	
+		
+		if( !validarFechaEditar()){
+				
+				context.addMessage(null,new FacesMessage(FacesMessage.SEVERITY_INFO, "Verifique las fechas: Fecha Inicio o Fin mayor a fecha actual", "Fechas Incorrectas!"));
+				return null;
+				//return "ternerasEnfermas";
+		}		
+		
+		
+		
+		
+		if (this.observacion.length()>=250) {
+			
+			context.addMessage(null,new FacesMessage(FacesMessage.SEVERITY_INFO, "Otros aspectos Sanitarios Excede de los 250 caracteres ", "Otros aspectos sanitarios!"));
+			return null;
+		}
+		
+	
+		EnfermedadTernera terneraEnf = new EnfermedadTernera (terneraEnferma.getId(),ternera,enfermedad,dateFin,aspectSan);
+		
+	
+		try {
+			
+			daoTerneraEnferma.editarEnfermedadTernera(terneraEnf);
+			context.addMessage(null,new FacesMessage(FacesMessage.SEVERITY_INFO,  "La Enfermedad por Ternera se ha sido editada con Exito.",
+					"Enfermedad Editada!"));
+
+			return "/ternerasEnfermas.xhtml?faces-redirect=true";
+			
+		} catch (Exception e) {
+			context.addMessage(null,new FacesMessage(FacesMessage.SEVERITY_ERROR, "Ocurrio un error al almacenar. Intente nuevamente mas tarde","Error al editar!"));
+			return null;
+		}
+		
+		
+		
+		
+	}
 	
 }

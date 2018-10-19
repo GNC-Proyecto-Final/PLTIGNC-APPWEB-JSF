@@ -1,4 +1,4 @@
-package gnc;
+package BeanGnc;
 
 import java.util.List;
 

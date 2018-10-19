@@ -9,7 +9,7 @@
     	
     	<ui:composition template="/template/GNCPlantilla.xhtml">
     		<ui:define name ="titulo">
-			        Nueva Enfermedad
+			        Terneras Enfermas
 			    </ui:define>
     		<ui:define name="contenido">
 				 <header>  
@@ -21,9 +21,8 @@
 					</div>
 				
 					    <p:dataTable id="tablaternerasEnfermasDT" var="ternerasEnfermasDT" value="#{TerneraEnferma.ternerasEnfermas}" widgetVar="terneraEnfermaTabla" multiViewState="true"
-					                 rows="10" paginator="true"
-					                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-					                 rowsPerPageTemplate="5,10,15"
+					                 rows="5" paginator="true"
+					                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} "
 					                 emptyMessage="No cars found with given criteria" filteredValue="#{TerneraEnferma.filtrarTernerasEnfermas}">
 						 
 						        <f:facet name="header">
@@ -62,8 +61,12 @@
 						        <p:column headerText="Notas" filterBy="#{ternerasEnfermasDT.observacion}" sortBy="#{ternerasEnfermasDT.observacion}" filterMatchMode="contains">
 						            <h:outputText value="#{ternerasEnfermasDT.observacion}" />
 						        </p:column>
-						       <p:column style = "width: 70px">
-						           <h:commandButton action="#" value="editar" icon="ui-icon-search" />
+						       <p:column style = "width: 85px">
+						           <h:commandButton action="#{terneraEnferma.abrirEditarTerneraEnferma()}"  value="Editar" title="Editar" class="boton" >
+						            	<f:param name="enfermedadId" value="#{ternerasEnfermasDT.enfermedad.idEnfermedad}"/>
+						            	<f:param name="terneraId" value="#{ternerasEnfermasDT.ternera.idTernera}"/>
+						            	<f:param name="fechaInicio" value="#{ternerasEnfermasDT.id.fechaDesde}"/>
+       							  </h:commandButton>
        
 						        </p:column>
 

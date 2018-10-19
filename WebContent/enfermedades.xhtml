@@ -20,9 +20,8 @@
 								<p:messages globalOnly="true" style = "color:red;margin:8px;" />
 					</div>
 					    <p:dataTable id="tablaEnfermedadDT" var="enfermedadDT" value="#{Enfermedades.enfermedades}" widgetVar="terneraTabla" multiViewState="true"
-					                 rows="10" paginator="true"
-					                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-					                 rowsPerPageTemplate="5,10,15"
+					                 rows="5" paginator="true"
+					                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} "
 					                 emptyMessage="No cars found with given criteria" filteredValue="#{Enfermedades.filteredEnfermedades}">
 						 
 						        <f:facet name="header">
@@ -44,8 +43,8 @@
 						            <h:outputText value="#{enfermedadDT.nombre}" />
 						        </p:column>
 						 
-						        <p:column style = "width: 70px">
-						           <h:commandButton action="#{Enfermedad.abrirEliminarEnfermedad()}" value="eliminar" icon="ui-icon-search" >
+						        <p:column style = "width: 85px">
+						           <h:commandButton action="#{Enfermedad.abrirEliminarEnfermedad()}" value="Eliminar" title="Eliminar" class="boton">
 						            	<f:param name="enfermedadId" value="#{enfermedadDT.idEnfermedad}"/>
        							  </h:commandButton>
 						        </p:column>

@@ -1,4 +1,4 @@
-package gnc;
+package BeanGnc;
 
 import java.util.Map;
 
@@ -91,7 +91,7 @@ public class EnfermedadBean {
     		
     		context.addMessage(null,new FacesMessage(FacesMessage.SEVERITY_INFO,"La  Enfermedad se ha sido registrado con Éxito.",
 					"Enfermedad Registrada!"));
-    		return "enfermedades";
+    		return "/enfermedades.xhtml?faces-redirect=true";
 	
 		} catch (Exception e) {
 			
@@ -106,13 +106,13 @@ public class EnfermedadBean {
 	      Map<String,String> params =  fc.getExternalContext().getRequestParameterMap();
 	      long enfermedadId = Long.parseLong(params.get("enfermedadId")); 
 	      enfermedad = daoEnfermedad.obtenerEnfermedadId(enfermedadId);
-	      return "eliminarEnfermedad";
+	      return "/eliminarEnfermedad.xhtml?faces-redirect=true";
 	}
 	public String cancelaEliminar(){
 		FacesContext context = FacesContext.getCurrentInstance();
 		context.addMessage(null,new FacesMessage(FacesMessage.SEVERITY_INFO, "Ha cancelado la eliminación de la enfermedad",
 				"Cancelo la eliminación!"));
-		return "enfermedades";
+		return "/enfermedades.xhtml?faces-redirect=true";
 	}
 	
 	public String eliminarEnfermedad() {
@@ -136,7 +136,7 @@ public class EnfermedadBean {
 				daoEnfermedad.eliminarEnfermedad(enfermedad);
 				context.addMessage(null,new FacesMessage(FacesMessage.SEVERITY_INFO, "La  Enfermedad se ha sido Eliminado con exito.",
 									"Enfermedad Elimada!"));
-						return "enfermedades";
+						return "/enfermedades.xhtml?faces-redirect=true";
 				
 				
 			}catch (Exception e) {

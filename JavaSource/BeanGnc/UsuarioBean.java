@@ -1,4 +1,4 @@
-package gnc;
+package BeanGnc;
 
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
@@ -93,7 +93,7 @@ public class UsuarioBean {
 					this.setPerfil(us.getPerfil());
 					this.setIdUsuario(us.getIdUsuario());
 					
-					return "bienvenido";
+					return "/bienvenido.xhtml?faces-redirect=true";
 				}else{
 
 							 	context.addMessage(null,new FacesMessage(FacesMessage.SEVERITY_WARN,
@@ -114,6 +114,6 @@ public class UsuarioBean {
 	public String logout() {
 		HttpSession session = SessionUtils.getSession();
 		session.invalidate();
-		return "inicio";
+		return "/inicio.xhtml?faces-redirect=true";
 	}
 }

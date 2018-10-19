@@ -7,19 +7,19 @@ public class Navegacion {
 	
 	
 	public String login(){
-		return "inicio";
+		return "/inicio";
 	}
 	public String nuevaEnfermedad(){
-		return "nuevaEnfermedad";
+		return "/nuevaEnfermedad.xhtml?faces-redirect=true";
 	}
 	public String nuevaTerneraEnferma(){
-		return "nuevaTerneraEnferma";
+		return "/nuevaTerneraEnferma.xhtml?faces-redirect=true";
 	}
 	public String terneraEnfermedades(){
-		return "enfermedades";
+		return "/enfermedades.xhtml?faces-redirect=true";
 	}
 	public String ternerasEnfermas(){
-		return "ternerasEnfermas";
+		return "/ternerasEnfermas.xhtml?faces-redirect=true";
 	}
 
 
