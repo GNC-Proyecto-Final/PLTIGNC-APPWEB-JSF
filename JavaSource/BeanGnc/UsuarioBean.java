@@ -97,8 +97,8 @@ public class UsuarioBean {
 				}else{
 
 							 	context.addMessage(null,new FacesMessage(FacesMessage.SEVERITY_WARN,
-									"Usuario o ContraseÃ±a Incorrecto",
-									"Por favor ingrese Usuario y contraseÃ±a correcto"));
+									"Usuario y/o Contraseña Incorrecto",
+									"Por favor ingrese Usuario y contraseña correcto"));
 				
 					return "inicio";
 				}

@@ -89,13 +89,13 @@ public class EnfermedadBean {
     	try {
     		daoEnfermedad.crearEnfermedad(enferm);
     		
-    		context.addMessage(null,new FacesMessage(FacesMessage.SEVERITY_INFO,"La  Enfermedad se ha sido registrado con √âxito.",
+    		context.addMessage(null,new FacesMessage(FacesMessage.SEVERITY_INFO,"La  Enfermedad se ha sido registrado con Exito.",
 					"Enfermedad Registrada!"));
     		return "/enfermedades.xhtml?faces-redirect=true";
 	
 		} catch (Exception e) {
 			
-			context.addMessage(null,new FacesMessage(FacesMessage.SEVERITY_WARN,"Hubo un error al almacenar. Intente nuevamente m√°s tarde",
+			context.addMessage(null,new FacesMessage(FacesMessage.SEVERITY_WARN,"Hubo un error al almacenar. Intente nuevamente m·s tarde",
 			"Error al registrar!"));
 			return "nuevaEnfermedad";
 		}
@@ -110,8 +110,8 @@ public class EnfermedadBean {
 	}
 	public String cancelaEliminar(){
 		FacesContext context = FacesContext.getCurrentInstance();
-		context.addMessage(null,new FacesMessage(FacesMessage.SEVERITY_INFO, "Ha cancelado la eliminaci√≥n de la enfermedad",
-				"Cancelo la eliminaci√≥n!"));
+		context.addMessage(null,new FacesMessage(FacesMessage.SEVERITY_INFO, "Ha cancelado la eliminaciÛn de la enfermedad",
+				"Cancelo la eliminaciÛn!"));
 		return "/enfermedades.xhtml?faces-redirect=true";
 	}
 	
