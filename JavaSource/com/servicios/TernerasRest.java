@@ -3,6 +3,7 @@ package com.servicios;
 import java.util.List;
 
 import javax.ejb.EJB;
+import javax.ejb.Stateless;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -14,6 +15,7 @@ import DAO.DAOTernerasBean;
 import entidades.Ternera;
 
 
+@Stateless
 @Path("/terneras")
 public class TernerasRest {
 	
