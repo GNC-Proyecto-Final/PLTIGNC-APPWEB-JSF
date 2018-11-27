@@ -16,7 +16,7 @@ import DAO.DAOEnfermedadTernerasBean;
 import entidades.EnfermedadTernera;
 
 @Stateless
-@Path("/enfTerneras")
+@Path("/enfermedadTerneras")
 public class EnfermedadTernerasRest {
 	
 	@EJB
