@@ -44,22 +44,25 @@ public class EnfermedadTernerasRest {
 
 	
 	@GET
+	@Path("/existe")
 	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 	public boolean getTerneraEnfermaFechaExiste(EnfermedadTernera enfermedadTernera) {
 		return daoEnfermedadTernerasBean.obtenerTerneraEnfermaFechaExiste(enfermedadTernera);
 	}
+
 	
 	@GET
 	@Path("/{idTernEnf}")
 	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-	public boolean getTerneraEnfermaExiste(@PathParam("idEnfermedad") long idEnfermedad) {
+	public boolean getTerneraEnfermaExiste(@PathParam("idTernEnf") long idEnfermedad) {
 		return daoEnfermedadTernerasBean.obtenerTerneraEnfermaExiste(idEnfermedad);
 	}
 	
 
 	@GET
+	@Path("/fecha")
 	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-	public EnfermedadTernera getTerneraEnfermaFecha(EnfermedadTernera enfermedadTernera) {
+	public EnfermedadTernera getTerneraEnfermaFecha( EnfermedadTernera enfermedadTernera) {
 		return daoEnfermedadTernerasBean.obtenerTerneraEnfermaFecha(enfermedadTernera);
 	}
 }
