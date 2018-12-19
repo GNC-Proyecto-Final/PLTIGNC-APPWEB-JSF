@@ -7,7 +7,7 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
-import DAO.DAOTernerasBean;
+import Controlador.TernerasBeanRemote;
 import entidades.Ternera;
 
 
@@ -16,8 +16,13 @@ import entidades.Ternera;
 @ViewScoped
 public class TerneraBeanDT {
 	
+	/*
 	@EJB
 	private DAOTernerasBean daoTerneras;
+	*/
+	
+	@EJB
+	private TernerasBeanRemote ternerasBeanRemote;
 	
 	private Ternera ternera; 
 	private List<Ternera> terneras = null;
@@ -31,7 +36,8 @@ public class TerneraBeanDT {
 	
 	@PostConstruct
 	public void getEnfermedadesList() {
-		terneras = (List<Ternera>) daoTerneras.obtenerTodasTerneras();
+		//terneras = (List<Ternera>) daoTerneras.obtenerTodasTerneras();
+		terneras = (List<Ternera>) ternerasBeanRemote.obtenerTodasTerneras();
 	}
 
 	public Ternera getTernera() {

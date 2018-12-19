@@ -7,7 +7,8 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import DAO.DAOTernerasBean;
+
+import Controlador.TernerasBeanRemote;
 import entidades.Ternera;
 import enumerados.Raza;
 import enumerados.TipoParto;
@@ -16,8 +17,13 @@ import enumerados.TipoParto;
 @SessionScoped
 public class TerneraBean {
 	
+	/*
 	@EJB
 	private DAOTernerasBean daoTernera;
+	*/
+	
+	@EJB
+	private TernerasBeanRemote ternerasBeanRemote;
 	
 	private long idTernera;
 	private String causaBaja;
@@ -111,7 +117,20 @@ public class TerneraBean {
 	}
 	public List<Ternera> obtenerTerneras(){
     	List<Ternera> enf = null;
-    	enf =   daoTernera.obtenerTodasTerneras();
+    	enf =   ternerasBeanRemote.obtenerTodasTerneras();
 		return enf;
+	}
+	
+	private void limpiarDatos(){
+		idTernera = 0;
+		causaBaja = null;
+		causaMuerte = null;
+		fechaBaja= null;
+		fechaMuerte= null;
+		fechaNacimiento= null;
+		nroCaravana= 0;
+		parto= null;
+		pesoNacimiento= null;
+		raza= null;
 	}
 }

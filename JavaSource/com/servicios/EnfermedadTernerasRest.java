@@ -12,50 +12,72 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import Controlador.EnfermedadTerneraBeanRemote;
 import DAO.DAOEnfermedadTernerasBean;
 import entidades.EnfermedadTernera;
+import excepciones.GNCException;
 
 @Stateless
 @Path("/enfermedadTerneras")
 public class EnfermedadTernerasRest {
+	/*
 	
 	@EJB
 	DAOEnfermedadTernerasBean daoEnfermedadTernerasBean;
+	*/
+	@EJB
+	EnfermedadTerneraBeanRemote enfermedadTerneraBeanRemote;
 	
 	@POST
 	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 	public void addEnfermedadTernera(EnfermedadTernera enfermedadTernera) {
-		daoEnfermedadTernerasBean.crearEnfermedadTernera(enfermedadTernera);
+		try {
+			enfermedadTerneraBeanRemote.crearTerneraEnferma(enfermedadTernera);
+		} catch (GNCException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 	}
 	
 	@PUT
 	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 	public void updateEnfermedadTernera(EnfermedadTernera enfermedadTernera) {
-		daoEnfermedadTernerasBean.editarEnfermedadTernera(enfermedadTernera);
+		try {
+			enfermedadTerneraBeanRemote.editarTerneraEnferma(enfermedadTernera);
+		} catch (GNCException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 	}
 	
 	@GET
 	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 	public List<EnfermedadTernera> getEnfermedadTernera() {
-		return daoEnfermedadTernerasBean.obtenerTodasEnfermedadesTerneras();
+		return enfermedadTerneraBeanRemote.obtenerTodasEnfermedadesTerneras();
 	}
-
 	
 	@GET
+	@Path("/informe")
+	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+	public List<EnfermedadTernera> getObtenerInformeTodasEnfermedadesTerneras() {
+		return enfermedadTerneraBeanRemote.obtenerInformeTodasEnfermedadesTerneras();
+	}
+	
+	@POST
 	@Path("/existe")
 	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 	public boolean getTerneraEnfermaFechaExiste(EnfermedadTernera enfermedadTernera) {
-		return daoEnfermedadTernerasBean.obtenerTerneraEnfermaFechaExiste(enfermedadTernera);
+		return enfermedadTerneraBeanRemote.obtenerTerneraEnfermaFechaExiste(enfermedadTernera);
 	}
 
 	
-	@GET
-	@Path("/{idTernEnf}")
+	@POST
+	@Path("/existe/{idEnfermedad}")
 	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-	public boolean getTerneraEnfermaExiste(@PathParam("idTernEnf") long idEnfermedad) {
-		return daoEnfermedadTernerasBean.obtenerTerneraEnfermaExiste(idEnfermedad);
+	public boolean getTerneraEnfermaExiste(@PathParam("idEnfermedad") long idEnfermedad) {
+		return enfermedadTerneraBeanRemote.existeEnfermedadEnTernaraEnfermedad(idEnfermedad);
 	}
 	
 
@@ -63,6 +85,6 @@ public class EnfermedadTernerasRest {
 	@Path("/fecha")
 	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 	public EnfermedadTernera getTerneraEnfermaFecha( EnfermedadTernera enfermedadTernera) {
-		return daoEnfermedadTernerasBean.obtenerTerneraEnfermaFecha(enfermedadTernera);
+		return enfermedadTerneraBeanRemote.obtenerTerneraEnfermaFecha(enfermedadTernera);
 	}
 }

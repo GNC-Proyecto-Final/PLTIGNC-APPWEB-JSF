@@ -7,7 +7,7 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
-import DAO.DAOEnfermedadesBean;
+import Controlador.EnfermedadBeanRemote;
 import entidades.Enfermedad;
 
 
@@ -15,9 +15,13 @@ import entidades.Enfermedad;
 @ManagedBean(name="Enfermedades")
 @ViewScoped
 public class EnfermedadBeanDT {
-	
+	/*
 	@EJB
 	private DAOEnfermedadesBean DAOEnfermedadesBean;
+	*/
+	
+	@EJB
+	private EnfermedadBeanRemote enfermedadBeanRemote;
 	
 	private Enfermedad enfermedad; 
 	private List<Enfermedad> enfermedades = null;
@@ -31,7 +35,8 @@ public class EnfermedadBeanDT {
 	
 	@PostConstruct
 	public void getEnfermedadesList() {
-		enfermedades = (List<Enfermedad>) DAOEnfermedadesBean.obtenerTodasEnfermedades();
+		//enfermedades = (List<Enfermedad>) DAOEnfermedadesBean.obtenerTodasEnfermedades();
+		enfermedades = (List<Enfermedad>) enfermedadBeanRemote.obtenerTodasEnfermedades();
 	}
 
 	public Enfermedad getEnfermedad() {

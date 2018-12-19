@@ -10,10 +10,10 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
-import DAO.DAOEnfermedadTernerasBean;
-import DAO.DAOTernerasBean;
 
-import DAO.DAOEnfermedadesBean;
+import Controlador.EnfermedadBeanRemote;
+import Controlador.EnfermedadTerneraBeanRemote;
+import Controlador.TernerasBeanRemote;
 import entidades.Enfermedad;
 import entidades.EnfermedadTernera;
 import entidades.EnfermedadTerneraPK;
@@ -25,7 +25,7 @@ import entidades.Ternera;
 @ManagedBean(name="terneraEnferma")
 @SessionScoped
 public class TerneraEnfermaBean {
-	
+	/*
 	@EJB
 	private DAOEnfermedadTernerasBean daoTerneraEnferma;
 	
@@ -34,6 +34,18 @@ public class TerneraEnfermaBean {
 	
 	@EJB
 	private DAOEnfermedadesBean daoEnfermedad;
+	*/
+	
+	@EJB
+	private  EnfermedadTerneraBeanRemote enfermedadTerneraBeanRemote;
+	
+	@EJB
+	private  EnfermedadBeanRemote enfermedadBeanRemote;
+	
+	@EJB
+	private TernerasBeanRemote ternerasBeanRemote;
+	
+
 	
 	private String terneraId;
 	private String enfermedadId;
@@ -126,7 +138,9 @@ public class TerneraEnfermaBean {
 	public String agregarTerneraEnferma() {
 		FacesContext context = FacesContext.getCurrentInstance();	
 		Long idTernera=Long.parseLong(this.getTerneraId());		
-		ternera = daoTernera.obtenerTerneraId(idTernera);		
+		//ternera = daoTernera.obtenerTerneraId(idTernera);	
+		ternera = ternerasBeanRemote.findTerneraPorId(idTernera);
+		
 		formatoFecha();			
 		if(!(ternera.getFechaMuerte()==null)||!(ternera.getFechaBaja()==null)){
 			
@@ -157,7 +171,8 @@ public class TerneraEnfermaBean {
 		else{
 			long  idEnfermedad = Long.parseLong(enfermedadId);
 
-			enfermedad = daoEnfermedad.obtenerEnfermedadId(idEnfermedad);
+			//enfermedad = daoEnfermedad.obtenerEnfermedadId(idEnfermedad);
+			enfermedad = enfermedadBeanRemote.findEnfermedadPorId(idEnfermedad);
 			
 			if(dateFin == null){
 				EnfermedadTerneraPK pk = new EnfermedadTerneraPK();
@@ -166,7 +181,8 @@ public class TerneraEnfermaBean {
 				pk.setFechaDesde(dateInicio);
 				EnfermedadTernera terneraEnferma = new EnfermedadTernera (pk,this.ternera,this.enfermedad,this.observacion);
 												
-				boolean existe = daoTerneraEnferma.obtenerTerneraEnfermaFechaExiste(terneraEnferma);
+				//boolean existe = daoTerneraEnferma.obtenerTerneraEnfermaFechaExiste(terneraEnferma);
+				boolean existe = enfermedadTerneraBeanRemote.obtenerTerneraEnfermaFechaExiste(terneraEnferma);
 				if (existe) {
 					context.addMessage(null,new FacesMessage(FacesMessage.SEVERITY_WARN,  "La Enfermedad por Ternera ya se encuentra registrada.",
 							"La enfermedad ya Existe!"));
@@ -175,10 +191,11 @@ public class TerneraEnfermaBean {
 					
 				try {
 					
-					daoTerneraEnferma.crearEnfermedadTernera(terneraEnferma);
-					
+					//daoTerneraEnferma.crearEnfermedadTernera(terneraEnferma);
+					enfermedadTerneraBeanRemote.crearTerneraEnferma(terneraEnferma);
 					context.addMessage(null,new FacesMessage(FacesMessage.SEVERITY_INFO,  "la  Enfermedad por Ternera se ha sido registrado con Exito.",
 							"Enfermedad Registrada!"));
+					limpiarDatos();
 					return "/ternerasEnfermas.xhtml?faces-redirect=true";
 		
 				
@@ -196,7 +213,9 @@ public class TerneraEnfermaBean {
 				pk.setFechaDesde(dateInicio);
 				EnfermedadTernera terneraEnferma = new EnfermedadTernera (pk,this.ternera,this.enfermedad,this.dateFin,this.observacion);
 				
-				boolean existe = daoTerneraEnferma.obtenerTerneraEnfermaFechaExiste(terneraEnferma);
+				//boolean existe = daoTerneraEnferma.obtenerTerneraEnfermaFechaExiste(terneraEnferma);
+				boolean existe = enfermedadTerneraBeanRemote.obtenerTerneraEnfermaFechaExiste(terneraEnferma);
+				
 				if (existe) {
 					
 					context.addMessage(null,new FacesMessage(FacesMessage.SEVERITY_WARN, "La Enfermedad por Ternera ya se encuentra registrada.",
@@ -205,9 +224,11 @@ public class TerneraEnfermaBean {
 				}
 				
 				try {
-					daoTerneraEnferma.crearEnfermedadTernera(terneraEnferma);
+					//daoTerneraEnferma.crearEnfermedadTernera(terneraEnferma);
+					enfermedadTerneraBeanRemote.crearTerneraEnferma(terneraEnferma);
 					context.addMessage(null,new FacesMessage(FacesMessage.SEVERITY_INFO,  "la  Enfermedad por Ternera se ha sido registrado con Exito.",
 							"Enfermedad Registrada!"));
+					limpiarDatos();
 					return "/ternerasEnfermas.xhtml?faces-redirect=true";
 					
 				} catch (Exception e) {
@@ -338,16 +359,23 @@ public class TerneraEnfermaBean {
 				e1.printStackTrace();
 			}
 	
-			ternera = daoTernera.obtenerTerneraId(terneraId);
+			//ternera = daoTernera.obtenerTerneraId(terneraId);
 			
-			enfermedad= daoEnfermedad.obtenerEnfermedadId(enfermedadId);
+			//enfermedad= daoEnfermedad.obtenerEnfermedadId(enfermedadId);
+			ternera = ternerasBeanRemote.findTerneraPorId(terneraId);
+			
+			enfermedad = enfermedadBeanRemote.findEnfermedadPorId(enfermedadId);
+			
 			
 			EnfermedadTerneraPK pk = new EnfermedadTerneraPK();
 			pk.setIdEnfermedad(enfermedadId);
 			pk.setIdTernera(terneraId);
 			pk.setFechaDesde(dateInicio);
 			EnfermedadTernera ternEnf = new EnfermedadTernera (pk,ternera,enfermedad);
-			terneraEnferma = this.daoTerneraEnferma.obtenerTerneraEnfermaFecha(ternEnf);
+			
+			//terneraEnferma = this.daoTerneraEnferma.obtenerTerneraEnfermaFecha(ternEnf);
+			terneraEnferma = this.enfermedadTerneraBeanRemote.obtenerTerneraEnfermaFecha(ternEnf);
+			
 			this.id = this.terneraEnferma.getId();
 			this.fechaHasta = terneraEnferma.getFechaHasta();
 			this.enfermedadId = String.valueOf(terneraEnferma.getEnfermedad().getIdEnfermedad());
@@ -398,11 +426,16 @@ public class TerneraEnfermaBean {
 	public String editarTerneraEnferma() {
 		
 		FacesContext context = FacesContext.getCurrentInstance();	
-		
+		/*
 		ternera = daoTernera.obtenerTerneraId(this.terneraEnferma.getId().getIdTernera());	
 		enfermedad = daoEnfermedad.obtenerEnfermedadId(this.terneraEnferma.getId().getIdEnfermedad());
+		*/
 		
 		
+		ternera = ternerasBeanRemote.findTerneraPorId(this.terneraEnferma.getId().getIdTernera());	
+		
+		enfermedad = enfermedadBeanRemote.findEnfermedadPorId(this.terneraEnferma.getId().getIdEnfermedad());
+
 		
 		this.fechaDesde = this.terneraEnferma.getId().getFechaDesde();
 		formatoFechaEditar();
@@ -439,20 +472,35 @@ public class TerneraEnfermaBean {
 	
 		try {
 			
-			daoTerneraEnferma.editarEnfermedadTernera(terneraEnf);
+			//daoTerneraEnferma.editarEnfermedadTernera(terneraEnf);
+			
+			enfermedadTerneraBeanRemote.editarTerneraEnferma(terneraEnf);
+			
 			context.addMessage(null,new FacesMessage(FacesMessage.SEVERITY_INFO,  "La Enfermedad por Ternera se ha sido editada con Exito.",
 					"Enfermedad Editada!"));
 
+			limpiarDatos();
 			return "/ternerasEnfermas.xhtml?faces-redirect=true";
 			
 		} catch (Exception e) {
 			context.addMessage(null,new FacesMessage(FacesMessage.SEVERITY_ERROR, "Ocurrio un error al almacenar. Intente nuevamente mas tarde","Error al editar!"));
 			return null;
 		}
+	}
+	private void limpiarDatos(){
+		terneraId = null ;
+		enfermedadId = null;
+		id = null;
+		fechaDesde = null;
+		fechaHasta = null;
+		observacion = null;
+		enfermedad = null;
+		ternera = null;
 		
-		
-		
-		
+		terneraEnferma = null;
+		dateInicio = null;
+		dateFin = null;
+		dateNacim = null;
 	}
 	
 }

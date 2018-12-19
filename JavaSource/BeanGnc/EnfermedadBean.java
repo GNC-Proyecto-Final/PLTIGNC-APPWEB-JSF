@@ -8,8 +8,8 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
-import DAO.DAOEnfermedadesBean;
-import DAO.DAOEnfermedadTernerasBean;
+import Controlador.EnfermedadBeanRemote;
+import Controlador.EnfermedadTerneraBeanRemote;
 import entidades.Enfermedad;
 import enumerados.NombreEnfermedad;
 
@@ -19,13 +19,20 @@ import enumerados.NombreEnfermedad;
 @SessionScoped
 public class EnfermedadBean {
 	
+	/*
 	@EJB
 	private DAOEnfermedadesBean daoEnfermedad;
 	
-	
-	
 	@EJB
 	private DAOEnfermedadTernerasBean daoEnfermedadTernera;
+	*/
+	
+	@EJB
+	private EnfermedadBeanRemote enfermedadBeanRemote;
+	
+	@EJB
+	private EnfermedadTerneraBeanRemote enfermedadTerneraBeanRemote;
+	
 	private long idEnfermedad;
 	private long gradoGravedad;
 	private NombreEnfermedad nombre;
@@ -78,7 +85,8 @@ public class EnfermedadBean {
 
 		Enfermedad enferm = new Enfermedad (this.gradoGravedad,this.nombre);
 		
-		boolean existe = daoEnfermedad.existeEnfermedad(enferm);
+		//boolean existe = daoEnfermedad.existeEnfermedad(enferm);
+		boolean existe = enfermedadBeanRemote.existeEnfermedad(enferm);
 		if (existe) {
 			
 			context.addMessage(null,new FacesMessage(FacesMessage.SEVERITY_WARN,"La Enfermedad ya se encuentra registrada.",
@@ -87,15 +95,19 @@ public class EnfermedadBean {
 		}
 			
     	try {
-    		daoEnfermedad.crearEnfermedad(enferm);
+    		
+    		//daoEnfermedad.crearEnfermedad(enferm);
+    		enfermedadBeanRemote.ingresarNuevaEnfermedad(enferm);
+    		
     		
     		context.addMessage(null,new FacesMessage(FacesMessage.SEVERITY_INFO,"La  Enfermedad se ha sido registrado con Exito.",
 					"Enfermedad Registrada!"));
+    		limpiarDatos();
     		return "/enfermedades.xhtml?faces-redirect=true";
 	
 		} catch (Exception e) {
 			
-			context.addMessage(null,new FacesMessage(FacesMessage.SEVERITY_WARN,"Hubo un error al almacenar. Intente nuevamente más tarde",
+			context.addMessage(null,new FacesMessage(FacesMessage.SEVERITY_WARN,"Hubo un error al almacenar. Intente nuevamente mï¿½s tarde",
 			"Error al registrar!"));
 			return "nuevaEnfermedad";
 		}
@@ -105,13 +117,14 @@ public class EnfermedadBean {
 	      FacesContext fc = FacesContext.getCurrentInstance();
 	      Map<String,String> params =  fc.getExternalContext().getRequestParameterMap();
 	      long enfermedadId = Long.parseLong(params.get("enfermedadId")); 
-	      enfermedad = daoEnfermedad.obtenerEnfermedadId(enfermedadId);
+	      //enfermedad = daoEnfermedad.obtenerEnfermedadId(enfermedadId);
+	      enfermedad = enfermedadBeanRemote.findEnfermedadPorId(enfermedadId);
 	      return "/eliminarEnfermedad.xhtml?faces-redirect=true";
 	}
 	public String cancelaEliminar(){
 		FacesContext context = FacesContext.getCurrentInstance();
-		context.addMessage(null,new FacesMessage(FacesMessage.SEVERITY_INFO, "Ha cancelado la eliminación de la enfermedad",
-				"Cancelo la eliminación!"));
+		context.addMessage(null,new FacesMessage(FacesMessage.SEVERITY_INFO, "Ha cancelado la eliminaciï¿½n de la enfermedad",
+				"Cancelo la eliminacion!"));
 		return "/enfermedades.xhtml?faces-redirect=true";
 	}
 	
@@ -120,11 +133,13 @@ public class EnfermedadBean {
 	      Map<String,String> params =  fc.getExternalContext().getRequestParameterMap();
 	      long enfermedadId = Long.parseLong(params.get("enfermedadId")); 
 		
-		Enfermedad enfermedad = daoEnfermedad.obtenerEnfermedadId(enfermedadId);
-		
+		//Enfermedad enfermedad = daoEnfermedad.obtenerEnfermedadId(enfermedadId);
+		Enfermedad enfermedad = enfermedadBeanRemote.findEnfermedadPorId(enfermedadId);
 		FacesContext context = FacesContext.getCurrentInstance();
-		boolean existe = daoEnfermedadTernera.obtenerTerneraEnfermaExiste(enfermedad.getIdEnfermedad());
 		
+		//boolean existe = daoEnfermedadTernera.obtenerTerneraEnfermaExiste(enfermedad.getIdEnfermedad());
+		
+		boolean existe = enfermedadTerneraBeanRemote.existeEnfermedadEnTernaraEnfermedad(enfermedad.getIdEnfermedad());
 		
 		if(existe){
 			context.addMessage(null,new FacesMessage(FacesMessage.SEVERITY_WARN, "La Enfermedad tiene registros Asociados,imposible Eliminar",
@@ -133,9 +148,13 @@ public class EnfermedadBean {
 		}
 		else{
 			try {
-				daoEnfermedad.eliminarEnfermedad(enfermedad);
+				
+				//daoEnfermedad.eliminarEnfermedad(enfermedad);
+				
+				enfermedadBeanRemote.eliminarEnfermedad(enfermedad);
 				context.addMessage(null,new FacesMessage(FacesMessage.SEVERITY_INFO, "La  Enfermedad se ha sido Eliminado con exito.",
 									"Enfermedad Elimada!"));
+				limpiarDatos();
 						return "/enfermedades.xhtml?faces-redirect=true";
 				
 				
@@ -151,4 +170,12 @@ public class EnfermedadBean {
 	
 		
 		}
+	
+		private void limpiarDatos(){
+			idEnfermedad = 0;
+			gradoGravedad = 0;
+			nombre = null;
+			enfermedad = null;
+		}
+
 }

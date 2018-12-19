@@ -6,7 +6,8 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
-import DAO.DAOUsuariosBean;
+
+import Controlador.UsuariosBeanRemote;
 import entidades.Usuario;
 import util.SessionUtils;
 
@@ -15,8 +16,11 @@ import util.SessionUtils;
 @SessionScoped
 public class UsuarioBean {
 	
+	/*@EJB
+	private DAOUsuariosBean DAOUsuariosBean;*/
+	
 	@EJB
-	private DAOUsuariosBean DAOUsuariosBean;
+	private UsuariosBeanRemote usuariosBeanRemote;
 	
 	private long idUsuario;
 	private String apellido;
@@ -24,20 +28,12 @@ public class UsuarioBean {
 	private String nombre;
 	private String perfil;
 	private String usuario;
-	//private Usuario us;
+
 	
-	
-	
+
 	public UsuarioBean() {
-		
-		//this.us = new Usuario();
+		super();
 	}
-	/*public Usuario getUs() {
-		return us;
-	}
-	public void setUs(Usuario us) {
-		this.us = us;
-	}*/
 	public long getIdUsuario() {
 		return idUsuario;
 	}
@@ -83,7 +79,9 @@ public class UsuarioBean {
 		
 		try{
 				FacesContext context = FacesContext.getCurrentInstance();
-				Usuario us = DAOUsuariosBean.obtenerUsuario(usuario, contrasenia);
+				//Usuario us = DAOUsuariosBean.obtenerUsuario(usuario, contrasenia);
+				Usuario us = usuariosBeanRemote.obtenerUsuario(usuario, contrasenia);
+				
 				if (us != null) {
 					
 					HttpSession session = SessionUtils.getSession();
@@ -97,8 +95,8 @@ public class UsuarioBean {
 				}else{
 
 							 	context.addMessage(null,new FacesMessage(FacesMessage.SEVERITY_WARN,
-									"Usuario y/o Contraseña Incorrecto",
-									"Por favor ingrese Usuario y contraseña correcto"));
+									"Usuario y/o Contraseï¿½a Incorrecto",
+									"Por favor ingrese Usuario y contraseï¿½a correcto"));
 				
 					return "inicio";
 				}
