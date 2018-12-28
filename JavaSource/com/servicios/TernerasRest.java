@@ -9,10 +9,9 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-
 import Controlador.TernerasBeanRemote;
-import DAO.DAOTernerasBean;
 import entidades.Ternera;
+import excepciones.TerneraException;
 
 
 @Stateless
@@ -28,7 +27,7 @@ public class TernerasRest {
 	private TernerasBeanRemote ternerasBeanRemote;
 	@GET
 	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-	public List<Ternera> getTerneras() {
+	public List<Ternera> getTerneras() throws TerneraException {
 		return ternerasBeanRemote.obtenerTodasTerneras();
 	
 	}
@@ -36,7 +35,7 @@ public class TernerasRest {
 	@GET
 	@Path("/{nroCvna}")
 	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-	public Ternera getTerneraNroCvna(@PathParam("nroCaravana") long nroCaravana) {
+	public Ternera getTerneraNroCvna(@PathParam("nroCaravana") long nroCaravana) throws TerneraException {
 		return ternerasBeanRemote.obtenerTerneraNroCaravana(nroCaravana);
 		
 	}

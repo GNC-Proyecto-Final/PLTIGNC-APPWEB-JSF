@@ -9,6 +9,7 @@ import javax.faces.bean.ViewScoped;
 
 import Controlador.EnfermedadBeanRemote;
 import entidades.Enfermedad;
+import excepciones.TerneraEnfermaException;
 
 
 
@@ -36,7 +37,12 @@ public class EnfermedadBeanDT {
 	@PostConstruct
 	public void getEnfermedadesList() {
 		//enfermedades = (List<Enfermedad>) DAOEnfermedadesBean.obtenerTodasEnfermedades();
-		enfermedades = (List<Enfermedad>) enfermedadBeanRemote.obtenerTodasEnfermedades();
+		try {
+			enfermedades = (List<Enfermedad>) enfermedadBeanRemote.obtenerTodasEnfermedades();
+		} catch (TerneraEnfermaException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public Enfermedad getEnfermedad() {

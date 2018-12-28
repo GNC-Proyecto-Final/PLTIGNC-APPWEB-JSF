@@ -13,9 +13,9 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import Controlador.EnfermedadBeanRemote;
-import DAO.DAOEnfermedadesBean;
 import entidades.Enfermedad;
 import excepciones.GNCException;
+import excepciones.TerneraEnfermaException;
 
 
 @Stateless
@@ -30,7 +30,7 @@ public class EnfermedadesRest {
 	
 	@GET
 	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-	public List<Enfermedad> getEnfermedad() {
+	public List<Enfermedad> getEnfermedad() throws TerneraEnfermaException {
 		return enfermedadBeanRemote.obtenerTodasEnfermedades();
 	}
 	
@@ -64,21 +64,21 @@ public class EnfermedadesRest {
 	@GET
     @Path("/{idEnfermedad}")
     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-    public Enfermedad getEnfermedadId(@PathParam("idEnfermedad") Long idEnfermedad) {
+    public Enfermedad getEnfermedadId(@PathParam("idEnfermedad") Long idEnfermedad) throws TerneraEnfermaException {
         return enfermedadBeanRemote.findEnfermedadPorId(idEnfermedad);
     }
 	
 	@GET
     @Path("/enfermedad/{idEnfermedad}")
     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-    public Enfermedad getFindEnfermedadId(@PathParam("idEnfermedad") Long idEnfermedad) {
+    public Enfermedad getFindEnfermedadId(@PathParam("idEnfermedad") Long idEnfermedad) throws TerneraEnfermaException {
         return enfermedadBeanRemote.findEnfermedadPorId(idEnfermedad);
     }
 	
 	@POST
     @Path("/enfermedadExiste")
     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-	public boolean  existeEnfermedad(Enfermedad enfermedad)  {
+	public boolean  existeEnfermedad(Enfermedad enfermedad) throws TerneraEnfermaException  {
 		return enfermedadBeanRemote.existeEnfermedad(enfermedad);
 	}
 	

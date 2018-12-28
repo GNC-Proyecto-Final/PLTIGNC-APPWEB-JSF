@@ -9,6 +9,7 @@ import javax.faces.bean.ViewScoped;
 
 import Controlador.TernerasBeanRemote;
 import entidades.Ternera;
+import excepciones.TerneraException;
 
 
 
@@ -35,9 +36,14 @@ public class TerneraBeanDT {
 	}
 	
 	@PostConstruct
-	public void getEnfermedadesList() {
+	public void getEnfermedadesList()  {
 		//terneras = (List<Ternera>) daoTerneras.obtenerTodasTerneras();
-		terneras = (List<Ternera>) ternerasBeanRemote.obtenerTodasTerneras();
+		try {
+			terneras = (List<Ternera>) ternerasBeanRemote.obtenerTodasTerneras();
+		} catch (TerneraException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public Ternera getTernera() {

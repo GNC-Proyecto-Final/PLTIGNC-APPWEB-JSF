@@ -13,9 +13,9 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import Controlador.EnfermedadTerneraBeanRemote;
-import DAO.DAOEnfermedadTernerasBean;
 import entidades.EnfermedadTernera;
 import excepciones.GNCException;
+import excepciones.TerneraEnfermaException;
 
 @Stateless
 @Path("/enfermedadTerneras")
@@ -54,21 +54,21 @@ public class EnfermedadTernerasRest {
 	
 	@GET
 	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-	public List<EnfermedadTernera> getEnfermedadTernera() {
+	public List<EnfermedadTernera> getEnfermedadTernera() throws TerneraEnfermaException {
 		return enfermedadTerneraBeanRemote.obtenerTodasEnfermedadesTerneras();
 	}
 	
 	@GET
 	@Path("/informe")
 	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-	public List<EnfermedadTernera> getObtenerInformeTodasEnfermedadesTerneras() {
+	public List<EnfermedadTernera> getObtenerInformeTodasEnfermedadesTerneras() throws TerneraEnfermaException {
 		return enfermedadTerneraBeanRemote.obtenerInformeTodasEnfermedadesTerneras();
 	}
 	
 	@POST
 	@Path("/existe")
 	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-	public boolean getTerneraEnfermaFechaExiste(EnfermedadTernera enfermedadTernera) {
+	public boolean getTerneraEnfermaFechaExiste(EnfermedadTernera enfermedadTernera) throws TerneraEnfermaException {
 		return enfermedadTerneraBeanRemote.obtenerTerneraEnfermaFechaExiste(enfermedadTernera);
 	}
 
@@ -76,7 +76,7 @@ public class EnfermedadTernerasRest {
 	@POST
 	@Path("/existe/{idEnfermedad}")
 	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-	public boolean getTerneraEnfermaExiste(@PathParam("idEnfermedad") long idEnfermedad) {
+	public boolean getTerneraEnfermaExiste(@PathParam("idEnfermedad") long idEnfermedad) throws TerneraEnfermaException {
 		return enfermedadTerneraBeanRemote.existeEnfermedadEnTernaraEnfermedad(idEnfermedad);
 	}
 	
@@ -84,7 +84,7 @@ public class EnfermedadTernerasRest {
 	@GET
 	@Path("/fecha")
 	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-	public EnfermedadTernera getTerneraEnfermaFecha( EnfermedadTernera enfermedadTernera) {
+	public EnfermedadTernera getTerneraEnfermaFecha( EnfermedadTernera enfermedadTernera) throws TerneraEnfermaException {
 		return enfermedadTerneraBeanRemote.obtenerTerneraEnfermaFecha(enfermedadTernera);
 	}
 }

@@ -12,6 +12,7 @@ import Controlador.TernerasBeanRemote;
 import entidades.Ternera;
 import enumerados.Raza;
 import enumerados.TipoParto;
+import excepciones.TerneraException;
 
 @ManagedBean(name="ternera")
 @SessionScoped
@@ -115,7 +116,7 @@ public class TerneraBean {
 	public void setRaza(Raza raza) {
 		this.raza = raza;
 	}
-	public List<Ternera> obtenerTerneras(){
+	public List<Ternera> obtenerTerneras() throws TerneraException{
     	List<Ternera> enf = null;
     	enf =   ternerasBeanRemote.obtenerTodasTerneras();
 		return enf;

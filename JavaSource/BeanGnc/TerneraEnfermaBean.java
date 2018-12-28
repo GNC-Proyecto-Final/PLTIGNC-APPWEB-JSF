@@ -18,6 +18,7 @@ import entidades.Enfermedad;
 import entidades.EnfermedadTernera;
 import entidades.EnfermedadTerneraPK;
 import entidades.Ternera;
+import excepciones.TerneraEnfermaException;
 
 
 
@@ -135,7 +136,7 @@ public class TerneraEnfermaBean {
 		this.terneraEnferma = terneraEnferma;
 	}
 
-	public String agregarTerneraEnferma() {
+	public String agregarTerneraEnferma() throws TerneraEnfermaException {
 		FacesContext context = FacesContext.getCurrentInstance();	
 		Long idTernera=Long.parseLong(this.getTerneraId());		
 		//ternera = daoTernera.obtenerTerneraId(idTernera);	
@@ -345,7 +346,7 @@ public class TerneraEnfermaBean {
 		
 	}
 	
-	public String abrirEditarTerneraEnferma() {
+	public String abrirEditarTerneraEnferma() throws TerneraEnfermaException {
 		
 	      FacesContext fc = FacesContext.getCurrentInstance();
 	      Map<String,String> params =  fc.getExternalContext().getRequestParameterMap();
@@ -423,7 +424,7 @@ public class TerneraEnfermaBean {
 		return fechaValida;
 		
 	}
-	public String editarTerneraEnferma() {
+	public String editarTerneraEnferma() throws TerneraEnfermaException {
 		
 		FacesContext context = FacesContext.getCurrentInstance();	
 		/*
