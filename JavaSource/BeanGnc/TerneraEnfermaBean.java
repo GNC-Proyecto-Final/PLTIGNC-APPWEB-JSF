@@ -142,107 +142,124 @@ public class TerneraEnfermaBean {
 		//ternera = daoTernera.obtenerTerneraId(idTernera);	
 		ternera = ternerasBeanRemote.findTerneraPorId(idTernera);
 		
-		formatoFecha();			
-		if(!(ternera.getFechaMuerte()==null)||!(ternera.getFechaBaja()==null)){
-			
-			context.addMessage(null,new FacesMessage(FacesMessage.SEVERITY_WARN,"Verifique que la ternera este habilitada, ternera muerta o dada de baja", "Ternera no habilitada"));
+		if(!validarExisteTernera() ) {
+			context.addMessage(null,new FacesMessage(FacesMessage.SEVERITY_WARN, "La Ternera no existe \n Ternera, Ingrese una ternera correcta.", "Datos incorrectos!"));
 			return null;
 		}
-	
-		if( !validarFecha()){
-			context.addMessage(null,new FacesMessage(FacesMessage.SEVERITY_WARN,"Verifique las fechas: \n Fecha Inicio o Fin mayor a fecha actual", "Fechas Incorrectas!"));
+		else if( !validarExisteEnfermedad() ) {
+			context.addMessage(null,new FacesMessage(FacesMessage.SEVERITY_WARN, "La Enfermedad no existe \\n Ternera, Ingrese una enfermedad correcta.", "Datos incorrectos!"));
 			return null;
-		}
-		if(!validarFechaNaciento()){
-			
-			context.addMessage(null,new FacesMessage(FacesMessage.SEVERITY_WARN,"Verifique la fecha inicio enfermedad - fecha inicio enfermedad < nacimiento", "Ternera no ha nacido aun"));
-			return null;
-		}
-						
-		if (this.observacion.length()>=250) {
-			context.addMessage(null,new FacesMessage(FacesMessage.SEVERITY_WARN,"Otros aspectos Sanitarios \n Excede de los 250 caracteres ", "Otros aspectos sanitarios"));
-			return null;
-		}
-		
-		// Si alguno es vacio, mostramos una ventana de mensaje
-		if (terneraId.equals("") || terneraId.equals("")||  dateInicio == null ) {
-			context.addMessage(null,new FacesMessage(FacesMessage.SEVERITY_WARN, "Debe completar los campos \n(Ternera, Enfermedad, Fecha Inicio.", "Datos incompletos!"));
-			return null;
-		}
-		else{
-			long  idEnfermedad = Long.parseLong(enfermedadId);
-
-			//enfermedad = daoEnfermedad.obtenerEnfermedadId(idEnfermedad);
-			enfermedad = enfermedadBeanRemote.findEnfermedadPorId(idEnfermedad);
-			
-			if(dateFin == null){
-				EnfermedadTerneraPK pk = new EnfermedadTerneraPK();
-				pk.setIdEnfermedad(idEnfermedad);
-				pk.setIdTernera(idTernera);
-				pk.setFechaDesde(dateInicio);
-				EnfermedadTernera terneraEnferma = new EnfermedadTernera (pk,this.ternera,this.enfermedad,this.observacion);
-												
-				//boolean existe = daoTerneraEnferma.obtenerTerneraEnfermaFechaExiste(terneraEnferma);
-				boolean existe = enfermedadTerneraBeanRemote.obtenerTerneraEnfermaFechaExiste(terneraEnferma);
-				if (existe) {
-					context.addMessage(null,new FacesMessage(FacesMessage.SEVERITY_WARN,  "La Enfermedad por Ternera ya se encuentra registrada.",
-							"La enfermedad ya Existe!"));
-					return null;
-				}
-					
-				try {
-					
-					//daoTerneraEnferma.crearEnfermedadTernera(terneraEnferma);
-					enfermedadTerneraBeanRemote.crearTerneraEnferma(terneraEnferma);
-					context.addMessage(null,new FacesMessage(FacesMessage.SEVERITY_INFO,  "la  Enfermedad por Ternera se ha sido registrado con Exito.",
-							"Enfermedad Registrada!"));
-					limpiarDatos();
-					return "/ternerasEnfermas.xhtml?faces-redirect=true";
+		}else if(validarExisteTernera() ) {
+			formatoFecha();	
 		
 				
-				} catch (Exception e) {
-					e.printStackTrace();
-					context.addMessage(null,new FacesMessage(FacesMessage.SEVERITY_WARN,"Hubo un error al almacenar. Intente nuevamente mas tarde",
-							"Error al registrar!"));
-				}
-			}			
+			if(!(ternera.getFechaMuerte()==null)||!(ternera.getFechaBaja()==null)){
+				
+				context.addMessage(null,new FacesMessage(FacesMessage.SEVERITY_WARN,"Verifique que la ternera este habilitada, ternera muerta o dada de baja", "Ternera no habilitada"));
+				return null;
+			}
+		
+			if( !validarFecha()){
+				context.addMessage(null,new FacesMessage(FacesMessage.SEVERITY_WARN,"Verifique las fechas: \n Fecha Inicio o Fin mayor a fecha actual", "Fechas Incorrectas!"));
+				return null;
+			}
+			if(!validarFechaNaciento()){
+				
+				context.addMessage(null,new FacesMessage(FacesMessage.SEVERITY_WARN,"Verifique la fecha inicio enfermedad - fecha inicio enfermedad < nacimiento", "Ternera no ha nacido aun"));
+				return null;
+			}
+							
+			if (this.observacion.length()>=250) {
+				context.addMessage(null,new FacesMessage(FacesMessage.SEVERITY_WARN,"Otros aspectos Sanitarios \n Excede de los 250 caracteres ", "Otros aspectos sanitarios"));
+				return null;
+			}
+			
+			// Si alguno es vacio, mostramos una ventana de mensaje
+			if (terneraId.equals("") || enfermedadId.equals("")||  dateInicio == null ) {
+				context.addMessage(null,new FacesMessage(FacesMessage.SEVERITY_WARN, "Debe completar los campos \n Ternera, Enfermedad, Fecha Inicio.", "Datos incompletos!"));
+				return null;
+			}else if(!validarExisteTernera() ) {
+				context.addMessage(null,new FacesMessage(FacesMessage.SEVERITY_WARN, "La Ternera no existe \n Ternera, Ingrese una ternera correcta.", "Datos incorrectos!"));
+				return null;
+			}
+			else if( !validarExisteEnfermedad() ) {
+				context.addMessage(null,new FacesMessage(FacesMessage.SEVERITY_WARN, "La Enfermedad no existe \\n Ternera, Ingrese una enfermedad correcta.", "Datos incorrectos!"));
+				return null;
+			}
 			else{
+				long  idEnfermedad = Long.parseLong(enfermedadId);
+	
+				//enfermedad = daoEnfermedad.obtenerEnfermedadId(idEnfermedad);
+				enfermedad = enfermedadBeanRemote.findEnfermedadPorId(idEnfermedad);
+				
+				if(dateFin == null){
+					EnfermedadTerneraPK pk = new EnfermedadTerneraPK();
+					pk.setIdEnfermedad(idEnfermedad);
+					pk.setIdTernera(idTernera);
+					pk.setFechaDesde(dateInicio);
+					EnfermedadTernera terneraEnferma = new EnfermedadTernera (pk,this.ternera,this.enfermedad,this.observacion);
+													
+					//boolean existe = daoTerneraEnferma.obtenerTerneraEnfermaFechaExiste(terneraEnferma);
+					boolean existe = enfermedadTerneraBeanRemote.obtenerTerneraEnfermaFechaExiste(terneraEnferma);
+					if (existe) {
+						context.addMessage(null,new FacesMessage(FacesMessage.SEVERITY_WARN,  "La Enfermedad por Ternera ya se encuentra registrada.",
+								"La enfermedad ya Existe!"));
+						return null;
+					}
 						
-				EnfermedadTerneraPK pk = new EnfermedadTerneraPK();
-				pk.setIdEnfermedad(idEnfermedad);
-				pk.setIdTernera(idTernera);
-				pk.setFechaDesde(dateInicio);
-				EnfermedadTernera terneraEnferma = new EnfermedadTernera (pk,this.ternera,this.enfermedad,this.dateFin,this.observacion);
-				
-				//boolean existe = daoTerneraEnferma.obtenerTerneraEnfermaFechaExiste(terneraEnferma);
-				boolean existe = enfermedadTerneraBeanRemote.obtenerTerneraEnfermaFechaExiste(terneraEnferma);
-				
-				if (existe) {
+					try {
+						
+						//daoTerneraEnferma.crearEnfermedadTernera(terneraEnferma);
+						enfermedadTerneraBeanRemote.crearTerneraEnferma(terneraEnferma);
+						context.addMessage(null,new FacesMessage(FacesMessage.SEVERITY_INFO,  "la  Enfermedad por Ternera se ha sido registrado con Exito.",
+								"Enfermedad Registrada!"));
+						limpiarDatos();
+						return "/ternerasEnfermas.xhtml?faces-redirect=true";
+			
 					
-					context.addMessage(null,new FacesMessage(FacesMessage.SEVERITY_WARN, "La Enfermedad por Ternera ya se encuentra registrada.",
-							"La enfermedad ya Existe!"));
-					return null;
-				}
-				
-				try {
-					//daoTerneraEnferma.crearEnfermedadTernera(terneraEnferma);
-					enfermedadTerneraBeanRemote.crearTerneraEnferma(terneraEnferma);
-					context.addMessage(null,new FacesMessage(FacesMessage.SEVERITY_INFO,  "la  Enfermedad por Ternera se ha sido registrado con Exito.",
-							"Enfermedad Registrada!"));
-					limpiarDatos();
-					return "/ternerasEnfermas.xhtml?faces-redirect=true";
+					} catch (Exception e) {
+						e.printStackTrace();
+						context.addMessage(null,new FacesMessage(FacesMessage.SEVERITY_WARN,"Hubo un error al almacenar. Intente nuevamente mas tarde",
+								"Error al registrar!"));
+					}
+				}			
+				else{
+							
+					EnfermedadTerneraPK pk = new EnfermedadTerneraPK();
+					pk.setIdEnfermedad(idEnfermedad);
+					pk.setIdTernera(idTernera);
+					pk.setFechaDesde(dateInicio);
+					EnfermedadTernera terneraEnferma = new EnfermedadTernera (pk,this.ternera,this.enfermedad,this.dateFin,this.observacion);
 					
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					//boolean existe = daoTerneraEnferma.obtenerTerneraEnfermaFechaExiste(terneraEnferma);
+					boolean existe = enfermedadTerneraBeanRemote.obtenerTerneraEnfermaFechaExiste(terneraEnferma);
 					
-					context.addMessage(null,new FacesMessage(FacesMessage.SEVERITY_WARN,  "Ocurrio un error al almacenar. Intente nuevamente mas tarde",
-							"Error al registrar!"));
-					return null;
+					if (existe) {
+						
+						context.addMessage(null,new FacesMessage(FacesMessage.SEVERITY_WARN, "La Enfermedad por Ternera ya se encuentra registrada.",
+								"La enfermedad ya Existe!"));
+						return null;
+					}
+					
+					try {
+						//daoTerneraEnferma.crearEnfermedadTernera(terneraEnferma);
+						enfermedadTerneraBeanRemote.crearTerneraEnferma(terneraEnferma);
+						context.addMessage(null,new FacesMessage(FacesMessage.SEVERITY_INFO,  "la  Enfermedad por Ternera se ha sido registrado con Exito.",
+								"Enfermedad Registrada!"));
+						limpiarDatos();
+						return "/ternerasEnfermas.xhtml?faces-redirect=true";
+						
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+						
+						context.addMessage(null,new FacesMessage(FacesMessage.SEVERITY_WARN,  "Ocurrio un error al almacenar. Intente nuevamente mas tarde",
+								"Error al registrar!"));
+						return null;
+					}
 				}
 			}
 		}
-		
 		return null;
 		
 		
@@ -423,6 +440,32 @@ public class TerneraEnfermaBean {
 		
 		return fechaValida;
 		
+	}
+	
+	public boolean validarExisteEnfermedad() throws TerneraEnfermaException{
+		
+		boolean enfermedadValida= false;
+		long  idEnfermedad = Long.parseLong(enfermedadId);
+		enfermedad = enfermedadBeanRemote.findEnfermedadPorId(idEnfermedad);
+		if(enfermedad==null) {
+			enfermedadValida= false;
+		}else {
+			enfermedadValida= true;
+		}
+		return enfermedadValida;
+	}
+	public boolean validarExisteTernera() throws TerneraEnfermaException{
+		
+		boolean terneraValida= false;
+		long  idTernera = Long.parseLong(terneraId);
+		ternera = ternerasBeanRemote.findTerneraPorId(idTernera);
+		if(ternera==null) {
+			terneraValida= false;
+		}else {
+			terneraValida= true;
+		}
+		System.out.println(terneraValida);
+		return terneraValida;
 	}
 	public String editarTerneraEnferma() throws TerneraEnfermaException {
 		
